@@ -1,0 +1,605 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Oct 29, 2024 at 05:52 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `laravel`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `absensi`
+--
+
+CREATE TABLE `absensi` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `data_karyawan_id` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `divisi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah_hadir` int(11) NOT NULL,
+  `mulai` date DEFAULT NULL,
+  `berakhir` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `absensi`
+--
+
+INSERT INTO `absensi` (`id`, `data_karyawan_id`, `nama`, `divisi`, `jumlah_hadir`, `mulai`, `berakhir`, `created_at`, `updated_at`) VALUES
+(62, '5-01', 'A. Yusril Mahendra', 'Pengawas Lapangan', 27, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(63, '5-02', 'Abd Rahman', 'Cook', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(64, '5-03', 'Adam Achmad Labisa', 'Cook', 5, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(65, '5-04', 'Ade Ratih', 'Hall Cashier', 24, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(66, '5-05', 'Ahmad Dani', 'Hall Waiters', 13, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(67, '5-06', 'Ahmad Sodiqin', 'Hall Cleaning Service', 9, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(68, '5-07', 'Akmal', 'Pembakaran', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(69, '5-08', 'Ali Akbar', 'Bar', 27, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(70, '5-09', 'Andi Rivaldi', 'Hall Cleaning Service', 12, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(71, '5-10', 'Apriliani Kartika Sari Ali', 'Hall Waiters', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(72, '5-11', 'Asriana Fitria Auliana Syam', 'Hall Waitress', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(73, '5-12', 'Ayu Meylani', 'Hall Waitress', 4, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(74, '5-13', 'Bambang Wiranata', 'Cook', 29, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(75, '5-14', 'Erawasi', 'Hall Waiters', 4, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(76, '5-15', 'Fadli. M', 'Runner', 5, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(77, '5-16', 'Fatchurrahman', 'Runner', 5, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(78, '5-17', 'Gika Purnama Putra', 'Kitchen Cook', 6, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(79, '5-18', 'Gilang', 'Hall Cleaning Service', 7, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(80, '5-19', 'Gilang Alexander Durandt', 'Kitchen Helper', 7, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(81, '5-20', 'Hamdana', 'Bartender', 18, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(82, '5-21', 'Hasni Arrahma Rahman', 'Hall Waiters', 15, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(83, '5-22', 'Ilyan Ashari', 'Waiter', 25, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(84, '5-23', 'Irfandi', 'Hall Cleaning Service', 24, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(85, '5-24', 'Ishaq', 'Pengawas Lapangan', 26, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(86, '5-25', 'Janwar Gunawan', 'Hall Cleaning Service', 24, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(87, '5-26', 'Kirani Takhfa Rusyda', 'Hall Waiters', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(88, '5-27', 'Lisa', 'Accounting', 29, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(89, '5-28', 'M. Alif Akbar', 'Runner', 4, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(90, '5-29', 'M Fajar Bahari', 'Cook', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(91, '5-30', 'Maharani Afifa', 'Hall Cashier', 21, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(92, '5-31', 'Mecarania Hidayat', 'Hall Waiters', 21, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(93, '5-32', 'Megawati', 'Runner', 4, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(94, '5-33', 'Moh. Rifaah Mahfudz', 'Helper', 27, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(95, '5-34', 'Muh Ali Akbar', 'Hall Cleaning Service', 24, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(96, '5-35', 'Muh Farhan', 'Hall Waiters', 10, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(97, '5-36', 'Muh Fitra Ramadhan', 'Pembakaran', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(98, '5-37', 'Muh. Ilham', 'Frying', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(99, '5-38', 'Muh Rafly Ahmad', 'Kitchen Helper', 29, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(100, '5-39', 'Muh Reza', 'Runner', 5, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(101, '5-40', 'Muh Rusdi', 'Kitchen Cook', 15, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(102, '5-41', 'Muh. Ilyas B', 'Frying', 30, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(103, '5-42', 'Muhammad Ali Al Khumais', 'Hall Waiters', 12, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(104, '5-43', 'Muhammad Danial Ibrahim', 'Hall Waiters', 5, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(105, '5-44', 'Muhammad Junaedi', 'Helper', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(106, '5-45', 'Ninis Putri Andika', 'Hall Cashier', 25, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(107, '5-46', 'Novianus Pappang', 'Kitchen Helper', 7, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(108, '5-47', 'Nur Aulia Tussaleha', 'Pantry', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(109, '5-48', 'Nur Ikram', 'Hall Cleaning Service', 23, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(110, '5-49', 'Nurdalifa Hamdani', 'Hall Waiters', 14, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(111, '5-50', 'Nurul Faradillah Mustafrizie', 'Hall Waiters', 4, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(112, '5-51', 'Nuuh Fitri Syamsuddin', 'Runner', 4, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(113, '5-52', 'Ratna Sari', 'Pantry', 30, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(114, '5-53', 'Riki Apriyanto', 'Pembakaran', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(115, '5-54', 'Risnawati', 'Pantry', 29, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(116, '5-55', 'Salman Al Farizi', 'Kitchen Frying', 5, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(117, '5-56', 'Sitti Zulhaika', 'Waitress', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(118, '5-57', 'Sucitri', 'Hall Waiters', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(119, '5-58', 'Sukirman Saha', 'Hall Cleaning Service', 25, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(120, '5-59', 'Sukriadi Said', 'Frying', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(121, '5-60', 'Wahyuddin', 'Admin Gudang', 28, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(122, '5-61', 'Widyaningsih', 'Hall Waiters', 25, NULL, NULL, '2024-09-10 08:10:06', '2024-09-10 08:10:06'),
+(183, '5-61', 'Widyaningsih', 'Hall Waiters', 25, NULL, NULL, '2024-09-10 08:10:12', '2024-09-10 08:10:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `clinics`
+--
+
+CREATE TABLE `clinics` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `clinics`
+--
+
+INSERT INTO `clinics` (`id`, `name`, `owner`, `email`, `address`, `phone`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'Klinik Tong Fang', 'dr. Tong Fang', 'klinikqu@mail.com', 'Jln. H. Lanakka', '08121212', NULL, '2023-11-19 10:42:06', '2023-11-23 09:51:31'),
+(3, 'Klinik Sehat', 'dr. Tong Sang Cong', 'tsc@mail.com', 'address', '0856565656', NULL, '2023-11-23 05:20:25', '2023-11-23 09:45:27'),
+(8, 'Halo Dunia', 'Hello World', NULL, 'Jln. Kemenangan', '09090909', NULL, '2023-11-23 07:17:07', '2023-11-23 09:05:38'),
+(12, 'Klinik ABCDEFGH', 'dr. Richard Lee', NULL, 'ABC', '00000', NULL, '2023-11-23 09:10:54', '2023-11-23 11:46:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_karyawan`
+--
+
+CREATE TABLE `data_karyawan` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jabatan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `divisi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `outlet` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kpi`
+--
+
+CREATE TABLE `kpi` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `simbol` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kriteria` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bobot` int(11) NOT NULL,
+  `atribut` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `departemen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `divisi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kpi`
+--
+
+INSERT INTO `kpi` (`id`, `simbol`, `kriteria`, `bobot`, `atribut`, `departemen`, `divisi`, `created_at`, `updated_at`) VALUES
+(1, 'C1', 'Kehadiran full\r\n', 20, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(2, 'C2', 'Izin\r\n', 5, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(3, 'C3', 'Alfa', 5, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(4, 'C4', 'Melaksanakan Perintah Atasan\r\n', 13, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(5, 'C5', 'Membantah Perintah Atasan', 12, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(6, 'C6', 'Teknik memotong/fillet ikan', 10, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(7, 'C7 ', 'Mengetahui kualitas/kondisi ikan yang layak diolah', 5, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(8, 'C8', 'Menguasai teknik membakar', 10, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(9, 'C9', 'Menguasai saus (rica/parape)', 10, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(10, 'C10', 'Komentar Negatif', 10, '', 'Pembakaran', 'Pembakaran', NULL, NULL),
+(11, 'C1', 'Kehadiran full', 20, '', 'Bar', 'Bar', NULL, NULL),
+(12, 'C2', 'Izin', 5, '', 'Bar', 'Bar', NULL, NULL),
+(13, 'C3', 'Alfa', 5, '', 'Bar', 'Bar', NULL, NULL),
+(14, 'C4', 'Melaksanakan perintah atasan', 13, '', 'Bar', 'Bar', NULL, NULL),
+(15, 'C5', 'Membantah perintah atasan', 12, '', 'Bar', 'Bar', NULL, NULL),
+(16, 'C6', 'Menjaga kebersihan area bar', 10, '', 'Bar', 'Bar', NULL, NULL),
+(17, 'C7', 'Menyiapkan bahan baku', 10, '', 'Bar', 'Bar', NULL, NULL),
+(18, 'C8', 'Cek stok bahan baku', 5, '', 'Bar', 'Bar', NULL, NULL),
+(19, 'C9', 'Kecepatan dan ketepatan memproses pesanan', 10, '', 'Bar', 'Bar', NULL, NULL),
+(20, 'C10', 'Komentar negatif', 10, '', 'Bar', 'Bar', NULL, NULL),
+(21, 'C1', 'Kehadiran full', 20, '', 'Hall', 'Hall Kasir', NULL, NULL),
+(22, 'C2', 'Izin', 5, '', 'Hall', 'Hall Kasir', NULL, NULL),
+(23, 'C3', 'Alfa', 5, '', 'Hall ', 'Hall Kasir', NULL, NULL),
+(24, 'C4', 'Melaksanakan perintah atasan', 13, '', 'Hall', 'Hall Kasir', NULL, NULL),
+(25, 'C5', 'Membantah perintah atasan', 12, '', 'Hall', 'Hall Kasir', NULL, NULL),
+(26, 'C6', 'Menyetor kas kasir', 10, '', 'Hall', 'Hall Kasir', NULL, NULL),
+(27, 'C7', 'Melayani proses transaksi customer', 10, '', 'Hall', 'Hall Kasir', NULL, NULL),
+(28, 'C8', 'Laporan harian MOKA', 10, '', 'Hall', 'Hall Kasir', NULL, NULL),
+(29, 'C9', 'Konfirmasi ulang tambahan orderan customer', 5, '', 'Hall', 'Hall Kasir', NULL, NULL),
+(30, 'C10', 'Komentar Negatif', 10, '', 'Hall', 'Hall Kasir', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medical_records`
+--
+
+CREATE TABLE `medical_records` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `patient_id` bigint(20) UNSIGNED NOT NULL,
+  `date` date NOT NULL,
+  `anamnesis` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `symptoms` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `diagnosis` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `treatment` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `blood_pressure` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `weight` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `height` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_11_000000_create_clinics_table', 1),
+(2, '2014_10_12_000000_create_users_table', 1),
+(3, '2014_10_12_100000_create_password_resets_table', 1),
+(4, '2014_10_12_200000_add_two_factor_columns_to_users_table', 1),
+(5, '2019_08_19_000000_create_failed_jobs_table', 1),
+(6, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(7, '2022_12_14_154339_create_sessions_table', 1),
+(15, '2023_11_23_172137_create_patients_table', 6),
+(17, '2023_11_24_084846_create_medical_records_table', 7),
+(18, '2014_10_12_100000_create_password_reset_tokens_table', 8),
+(19, '2024_07_27_151856_create_data_karyawan', 8),
+(20, '2024_07_27_152418_create_absensi', 9),
+(21, '2024_07_27_152827_create_kpi', 10),
+(22, '2024_08_27_160102_create_kpi_table', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patients`
+--
+
+CREATE TABLE `patients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tanggal` date DEFAULT NULL,
+  `tanggal_update` date DEFAULT NULL,
+  `penyulang` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `recloser` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `section` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `FCO` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `zona` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `relay` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `arus_gangguan_r` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `arus_gangguan_s` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `arus_gangguan_t` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `arus_gangguan_n` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jam_padam` time DEFAULT NULL,
+  `jam_nyala` time DEFAULT NULL,
+  `durasi_padam` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `penyebab` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keterangan` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `siklus_FGTM` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `rayon` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jenis_trip` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `inputer` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `images` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mingguan` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PIC` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT 'Belum Approve',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `patients`
+--
+
+INSERT INTO `patients` (`id`, `tanggal`, `tanggal_update`, `penyulang`, `recloser`, `section`, `FCO`, `zona`, `relay`, `arus_gangguan_r`, `arus_gangguan_s`, `arus_gangguan_t`, `arus_gangguan_n`, `jam_padam`, `jam_nyala`, `durasi_padam`, `penyebab`, `keterangan`, `siklus_FGTM`, `rayon`, `jenis_trip`, `inputer`, `images`, `mingguan`, `PIC`, `status`, `created_at`, `updated_at`) VALUES
+(11, '2024-01-20', '2024-02-19', 'Andalas', 'REC BARAMBANG', 'sec', 'fco', 'KUBIKEL', 'GFR', '123', '124', '213', '123', '00:00:00', '00:30:00', NULL, 'LAYANG-LAYANG/UMBUL-UMBUL, DLL', 'asdasdsad', 'qweqwe', 'KAREBOSI', 'Temporer', 'YOSEF', 'REC BIRING KASSI', 'Ya', '-', 'Belum Approve', '2024-02-11 13:03:07', '2024-02-12 11:03:03'),
+(12, '2024-02-23', '2024-02-27', 'Pelamonia', 'REC ARUNG SABILA', 'sec', 'sadsad', 'REC', 'OCR', '123', '124', '213', '123', '00:00:00', '00:30:00', NULL, 'KOMPONEN JTM', 'asdasdsad', 'qweqwe', 'PANGKEP', 'Temporer', 'RAHMAT', 'REC BIRING KASSI', 'Ya', '-', 'Belum Approve', '2024-02-12 03:14:14', '2024-02-12 03:14:14'),
+(13, '2024-01-15', '2024-02-06', 'Mattoangin', 'REC BARANDASI', 'sec', 'fco', 'REC', 'OCR', '123', '124', '213', '123', '00:00:00', '00:30:00', NULL, 'BENCANA ALAM', 'asdasdsad', 'qweqwe', 'DAYA', 'Temporer', 'RAHMAT', 'REC BIRING KASSI', 'Ya', '-', 'Approve', '2024-02-12 11:25:36', '2024-02-12 15:44:03'),
+(14, '2024-02-14', '2024-02-20', 'Andalas', 'REC BARANDASI', 'asdsa', 'fco', 'PMT', 'OCR & GFR', '123', '124', '213', '123', '00:00:00', '00:30:00', NULL, 'TIANG', 'asdasdsad', 'qweqwe', 'MAROS', 'Temporer', 'RAHMAT', 'REC BIRING KASSI', 'Ya', '-', 'Belum Approve', '2024-02-12 11:26:32', '2024-02-12 11:26:32'),
+(15, '2024-02-08', '2024-02-06', 'Akademis', 'REC BARANDASI', 'sec', 'sadsad', 'KUBIKEL', 'OCR & GFR', '123', '124', '213', '123', '00:00:00', '00:30:00', NULL, 'BENCANA ALAM', 'asdasdsad', 'qweqwe', 'DAYA', 'Temporer', 'ALAM', 'REC BENTENG GAJAH', 'Ya', '-', 'Belum Approve', '2024-02-12 11:27:23', '2024-02-12 11:28:47'),
+(16, '2024-02-20', '2024-02-20', 'Pelamonia', 'REC BIRING KASSI', 'asdsa', 'sadsad', 'PMT', 'OCR', '123', '124', '213', '123', '00:00:00', '00:30:00', NULL, 'KOMPONEN JTM', 'asdasdsad', 'qweqwe', 'DAYA', 'Permanen', 'FAJAR', 'REC BENTENG GAJAH', 'Ya', '-', 'Belum Approve', '2024-02-12 11:28:20', '2024-02-12 11:28:20'),
+(17, '2024-03-08', '2024-02-06', 'Pelamonia', 'REC BARANDASI', 'asdsa', 'fco', 'REC', 'GFR', '123', '124', '213', '123', '00:00:00', '00:30:00', NULL, 'PERALATAN JTM', 'asdasdsad', 'qweqwe', 'KAREBOSI', 'Temporer', 'OPT TIDAK INPUT', 'REC BARANDASI', 'Ya', '-', 'Approve', '2024-02-12 13:19:39', '2024-02-12 13:20:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_access_tokens`
+--
+
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('9pu2lmWN2AfIEKsTnuaRNWlGl9lp2jJwxk6Wfg5A', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoid1V2MUVGTHlMOTB1OGgyU3o0V3BCUkcyeEdmZk4wWmFqRTJ4M2NoUyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMyOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vdXNlciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1708498160),
+('9vo8i8qJpH6GC6C5tqGsto4hFWZHo54wG5JE2T0r', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMmdacjNld3RtZE9BZDRvYjN6UEg5bWIwNEhXQmFvNXBJUUhiZ0NLZiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vY2xpbmljIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1711868634),
+('Efaq3VbkcACOf7IIuv8a6kUjHpSrl3JmNPyr6OpL', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUWxaMVBmTFJsbEtQSnRXdXRMMjdrWlRKUExCYWtrdXFFSTBUemFmVSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vY2xpbmljIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1716540665),
+('eMKLCqbUpjnD4KF0gWLkcSacnlpZC8OWJI69kPo0', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibmZMNnVFdE1EU0RLbXQzUkVpeVFOTnpMeXVobG5yT3VuOUZxUlRSVyI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoyMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1712081050),
+('iLnu9qSAQHumg14JNLzHYyOFM2s8rG4046NiwKuq', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiS2F0WmVzdzBzYzFqcFlHWGNlUGNrb0NOSDJRdVpMTDg2NklwU09DdiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1715770801),
+('Nb0Se674aNpNv838B2JqCiwRlLDIrDIPQu32uojk', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiVFNKSWJCcXFybDkydWFkRDZFQnYwRGFhQTJuZ1lucXdOUm9Ob2RqZCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1708248220),
+('tKjvI7Hg8KZSfoUhxmUAHtYoJa7UtAuNzAdAr3zp', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidGVyYlNIbkx3Y2U4WmMzaUdiZHlKNVpJM01JRGs4a3NucHp0VmFXdiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1720874516),
+('ZsMLSlPfAWtMEQp5PJY9IJcsKhp56v0fIMsRsqgy', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibjZoQnhuVW42UGwybUwxbXM1UE9BZUh0WUlPYXA1V3ZYeHg0enVwcyI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoyMToiaHR0cDovLzEyNy4wLjAuMTo4MDUwIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODA1MC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1725982048);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `two_factor_secret` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `two_factor_recovery_codes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `two_factor_confirmed_at` timestamp NULL DEFAULT NULL,
+  `type` enum('0','1','2') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '2',
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `current_team_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `profile_photo_path` varchar(2048) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('0','1','-1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
+  `clinic_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `type`, `remember_token`, `current_team_id`, `profile_photo_path`, `status`, `clinic_id`, `created_at`, `updated_at`) VALUES
+(1, 'Administrator', 'admin@mail.com', '2023-11-19 02:19:08', '$2y$10$nUUp9rJtgJ/wqGuavkcDs.O/2XK/barfaQB98HXjQ.WzNusYpZ/4.', NULL, NULL, NULL, '0', 'IrGyRugnrnl6QrZrj72EhoWChPOoFlRp6apAoIvTNlJXv669hQ4w6NCodack', NULL, NULL, '1', NULL, '2023-11-19 02:18:49', '2024-02-13 04:47:38'),
+(2, 'Operator', 'operator@mail.com', NULL, '$2y$10$tHzZkkbz0KL8NWMGU0X6LeLe4QD.fUEFWJhJ4Z49p.BSOPASJraSy', NULL, NULL, NULL, '1', 'xWoLy5ak57CxSP1NsMsces0wLByknWtdurcc5NsLg6tmyyXq3qye5ZRPjSrm', NULL, NULL, '1', 1, '2023-11-19 02:25:39', '2024-02-13 04:50:17');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `absensi`
+--
+ALTER TABLE `absensi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `clinics`
+--
+ALTER TABLE `clinics`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `clinics_email_unique` (`email`);
+
+--
+-- Indexes for table `data_karyawan`
+--
+ALTER TABLE `data_karyawan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `kpi`
+--
+ALTER TABLE `kpi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medical_records`
+--
+ALTER TABLE `medical_records`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `medical_records_patient_id_foreign` (`patient_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `patients`
+--
+ALTER TABLE `patients`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `users_clinic_id_foreign` (`clinic_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `absensi`
+--
+ALTER TABLE `absensi`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+
+--
+-- AUTO_INCREMENT for table `clinics`
+--
+ALTER TABLE `clinics`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `data_karyawan`
+--
+ALTER TABLE `data_karyawan`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kpi`
+--
+ALTER TABLE `kpi`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `medical_records`
+--
+ALTER TABLE `medical_records`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `patients`
+--
+ALTER TABLE `patients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `medical_records`
+--
+ALTER TABLE `medical_records`
+  ADD CONSTRAINT `medical_records_patient_id_foreign` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_clinic_id_foreign` FOREIGN KEY (`clinic_id`) REFERENCES `clinics` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

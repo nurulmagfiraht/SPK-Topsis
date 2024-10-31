@@ -14,10 +14,22 @@ class AbsensiController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        $dataKaryawan = Absensi::all();
-        return view(('admin-absensi'), compact('dataKaryawan'));
+        $query = Absensi::query();
+
+        // Filtering berdasarkan divisi
+        if ($request->has('divisi') && $request->divisi != '') {
+            $query->where('divisi', $request->divisi);
+        }
+
+        // Pagination dengan 15 data per halaman
+        $dataKaryawan = $query->paginate(20);
+
+        // Ambil semua divisi untuk dropdown filter
+        $divisiList = Absensi::select('divisi')->distinct()->get();
+
+        return view('admin-absensi', compact('dataKaryawan', 'divisiList'));
     }
     
     public function import(Request $request)

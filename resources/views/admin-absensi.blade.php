@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/admin-template/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -46,14 +47,23 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <form action="{{ route('admin.absensi.index') }}" method="POST" enctype="multipart/form-data">
-                  @csrf
-                  <div class="card-tools float-right">
-                    <input type="file"  accept=".csv, .xls, .xlsx" name="absensi_file">
-                    <input type="submit" value="Import">
+                <form action="{{ route('admin.absensi.index') }}" method="GET">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <select name="divisi" class="form-control">
+                        <option value="">-- Pilih Divisi --</option>
+                        @foreach($divisiList as $divisi)
+                          <option value="{{ $divisi->divisi }}" {{ request('divisi') == $divisi->divisi ? 'selected' : '' }}>
+                            {{ $divisi->divisi }}
+                          </option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
                   </div>
                 </form>
-                
               </div>
               <div class="card-body">
                 <table class="table table-bordered">
@@ -76,17 +86,21 @@
                     @endforeach
                   </tbody>
                 </table>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        @if ($dataKaryawan->onFirstPage())
+                            <span class="btn btn-sm btn-secondary ml-2 disabled">Previous</span>
+                        @else
+                            <a href="{{ $dataKaryawan->previousPageUrl() }}" class="btn btn-sm btn-primary ml-2">Previous</a>
+                        @endif
+                        @if ($dataKaryawan->hasMorePages())
+                            <a href="{{ $dataKaryawan->nextPageUrl() }}" class="btn btn-sm btn-primary ml-2">Next</a>
+                        @endif
+                    </div>
+                </div>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             <!-- /.card -->
         
