@@ -14,7 +14,18 @@ class KPI extends Model
         'simbol',
         'kriteria',
         'bobot',
-        'divisi',
         'atribut',
+        'departemen_id',
+        'divisi_id',
     ];
+
+    public function departemen()
+    {
+        return $this->belongsTo(Departemen::class, 'departemen_id');
+    }
+
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class, 'divisi_id');
+    }
 }

@@ -25,7 +25,7 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', function () {
-    return view('admin');
+    return view('admin.admin');
 });
 
 Route::get('/cobekgurih', function () {
@@ -47,3 +47,6 @@ Route::get('/edit-penilaiankaryawan/{id}', [PenilaianKaryawan::class,'index'])->
 Route::get('/admin-hasilspk', [SPKController::class,'index'])->name('admin-hasilspk.index');
 
 Route::post('/admin-absensi', [AbsensiController::class,'import'])->name('admin.absensi.index');
+
+// Rute untuk KPI
+Route::resource('kpi', KPIController::class);

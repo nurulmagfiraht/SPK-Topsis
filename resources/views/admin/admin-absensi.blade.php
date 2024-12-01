@@ -17,9 +17,9 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  @include('admin-navbar')
+  @include('admin.admin-navbar')
 
-  @include('admin-sidebar')
+  @include('admin.admin-sidebar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -50,11 +50,11 @@
                 <form action="{{ route('admin.absensi.index') }}" method="GET">
                   <div class="row">
                     <div class="col-md-4">
-                      <select name="divisi" class="form-control">
-                        <option value="">-- Pilih Divisi --</option>
+                      <select name="divisi_id" class="form-control">
+                        <option value="">-- Semua divisi --</option>
                         @foreach($divisiList as $divisi)
-                          <option value="{{ $divisi->divisi }}" {{ request('divisi') == $divisi->divisi ? 'selected' : '' }}>
-                            {{ $divisi->divisi }}
+                          <option value="{{ $divisi->id }}" {{ request('divisi_id') == $divisi->id ? 'selected' : '' }}>
+                            {{ $divisi->nama }}
                           </option>
                         @endforeach
                       </select>
@@ -80,7 +80,7 @@
                     <tr>
                       <td>{{ $Karyawan->id }}</td>
                       <td>{{ $Karyawan->nama }}</td>
-                      <td>{{ $Karyawan->divisi }}</td>
+                      <td>{{ $Karyawan->divisi->nama }}</td>
                       <td>{{ $Karyawan->jumlah_hadir }}</td>
                     </tr>
                     @endforeach
@@ -90,12 +90,12 @@
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div>
                         @if ($dataKaryawan->onFirstPage())
-                            <span class="btn btn-sm btn-secondary ml-2 disabled">Previous</span>
+                            <span class="btn btn-sm btn-secondary ml-2 disabled">Sebelumnya</span>
                         @else
-                            <a href="{{ $dataKaryawan->previousPageUrl() }}" class="btn btn-sm btn-primary ml-2">Previous</a>
+                            <a href="{{ $dataKaryawan->previousPageUrl() }}" class="btn btn-sm btn-primary ml-2">Sebelumnya</a>
                         @endif
                         @if ($dataKaryawan->hasMorePages())
-                            <a href="{{ $dataKaryawan->nextPageUrl() }}" class="btn btn-sm btn-primary ml-2">Next</a>
+                            <a href="{{ $dataKaryawan->nextPageUrl() }}" class="btn btn-sm btn-primary ml-2">Berikutnya</a>
                         @endif
                     </div>
                 </div>
@@ -103,7 +103,16 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-        
-@include('footer-admin')
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+@include('admin.footer-admin')
+</div>
+<!-- ./wrapper -->
 </body>
 </html>

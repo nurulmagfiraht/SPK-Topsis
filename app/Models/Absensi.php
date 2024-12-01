@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Karyawan;
+use App\Models\Divisi;
 
 class Absensi extends Model
 {
@@ -12,15 +14,20 @@ class Absensi extends Model
     protected $fillable = [
         'data_karyawan_id',
         'nama',
-        'divisi',
+        'divisi_id',
         'jumlah_hadir',
         'mulai',
         'berakhir',
     ];
 
-    // Definisikan relasi ke model Karyawan
-    public function karyawan()
+    // Definisikan relasi ke model DataKaryawan dan Divisi
+    public function dataKaryawan()
     {
-        return $this->belongsTo(Karyawan::class, 'id_karyawan');
+        return $this->belongsTo(Karyawan::class, 'data_karyawan_id');
+    }
+
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class, 'divisi_id');
     }
 }

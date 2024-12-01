@@ -36,9 +36,9 @@
     <img class="animation__shake" src="/admin-template/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
 
-  @include('admin-navbar')
+  @include('admin.admin-navbar')
 
-  @include('admin-sidebar')
+  @include('admin.admin-sidebar')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -646,7 +646,7 @@
   <!-- /.content-wrapper -->
 
 
-  @include('footer-admin')
+  @include('admin.footer-admin')
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

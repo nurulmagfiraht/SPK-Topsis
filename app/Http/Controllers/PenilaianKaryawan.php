@@ -15,7 +15,7 @@ class PenilaianKaryawan extends Controller
     {
         $karyawan = Absensi::find($id);
 
-        return view ("edit-penilaiankaryawan", compact("karyawan"));
+        return view ("admin.edit-penilaiankaryawan", compact("karyawan"));
 
         
     }

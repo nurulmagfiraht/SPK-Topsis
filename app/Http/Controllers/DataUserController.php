@@ -11,7 +11,7 @@ class DataUserController extends Controller
      */
     public function index()
     {
-        return view ("admin-datauser");
+        return view ("admin.admin-datauser");
     }
 
     /**

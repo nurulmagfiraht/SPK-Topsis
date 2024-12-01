@@ -2,8 +2,15 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\DepartemenTableSeeder;
+use Database\Seeders\DivisiTableSeeder;
+use Database\Seeders\JabatanTableSeeder;
+use Database\Seeders\KpiTableSeeder;
+use Database\Seeders\AbsensiTableSeeder;
+use Database\Seeders\UserTableSeeder;
+use Database\Seeders\DataKaryawanTableSeeder;
+use Database\Seeders\OutletTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +19,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            DepartemenTableSeeder::class,
+            DivisiTableSeeder::class,
+            JabatanTableSeeder::class,
+            KpiTableSeeder::class,
+            OutletTableSeeder::class,
+            DataKaryawanTableSeeder::class,
+            AbsensiTableSeeder::class,
+            // UsersTableSeeder::class,
+        ]);
     }
 }

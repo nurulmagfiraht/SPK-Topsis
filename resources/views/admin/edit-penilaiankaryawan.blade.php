@@ -30,9 +30,9 @@
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        @include('admin-navbar')
+        @include('admin.admin-navbar')
 
-        @include('admin-sidebar')
+        @include('admin.admin-sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -142,7 +142,7 @@
                     </div>
                 </div>
             </section>
-            @include('footer-admin')
+            @include('admin.footer-admin')
         </div>
         <!-- /.content-wrapper -->
     </div>

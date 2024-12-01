@@ -11,7 +11,7 @@ class SPKController extends Controller
      */
     public function index()
     {
-        return view("admin-hasilspk");
+        return view("admin.admin-hasilspk");
     }
 
     /**

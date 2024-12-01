@@ -12,7 +12,7 @@ class PenilaianKPIController extends Controller
         // Ambil data ID Karyawan, Nama, dan Divisi dari absensi melalui relasi dengan model Karyawan
         $dataKaryawan = Absensi::all();
 
-        return view('admin-penilaian', compact('dataKaryawan'));
+        return view('admin.admin-penilaian', compact('dataKaryawan'));
     }
 
     /**

@@ -12,12 +12,14 @@
   <link rel="stylesheet" href="/admin-template/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="/admin-template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  @include('admin-navbar')
+  @include('admin.admin-navbar')
 
-  @include('admin-sidebar')
+  @include('admin.admin-sidebar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -26,12 +28,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Simple Tables</h1>
+            <h1>Daftar KPI</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
+              <li class="breadcrumb-item active">Daftar KPI</li>
             </ol>
           </div>
         </div>
@@ -45,7 +47,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"></h3>
+                <h3 class="card-title">Daftar KPI</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -62,33 +64,54 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($KPI as $key => $kpi)
+                    @foreach ($kpi as $key => $item)
                     <tr>
-                      <td>{{ $kpi->id }}</td>
-                      <td>{{ $kpi->simbol }}</td>
-                      <td>{{ $kpi->kriteria }}</td>
-                      <td>{{ $kpi->bobot }}%</td>
-                      <td>{{ $kpi->atribut }}</td>
-                      <td>{{ $kpi->divisi }}</td>
-                      <td></td>
+                      <td>{{ $item->id }}</td>
+                      <td>{{ $item->simbol }}</td>
+                      <td>{{ $item->kriteria }}</td>
+                      <td>{{ $item->bobot }}%</td>
+                      <td>{{ $item->atribut }}</td>
+                      <td>{{ $item->divisi->nama ?? 'Tidak ada divisi' }}</td>
+                      <td>
+                        <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editKpiModal-{{ $item->id }}">Edit</a>
+                        <form action="{{ route('kpi.destroy', $item->id) }}" method="POST" style="display:inline;">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus KPI ini?')">Hapus</button>
+                        </form>
+                      </td>
                     </tr>
+                    @include('kpi.edit', ['item' => $item])
                     @endforeach
                   </tbody>
                 </table>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <div>
+                    @if ($kpi->onFirstPage())
+                      <span class="btn btn-sm btn-secondary ml-2 disabled">Previous</span>
+                    @else
+                      <a href="{{ $kpi->previousPageUrl() }}" class="btn btn-sm btn-primary ml-2">Previous</a>
+                    @endif
+                    @if ($kpi->hasMorePages())
+                      <a href="{{ $kpi->nextPageUrl() }}" class="btn btn-sm btn-primary ml-2">Next</a>
+                    @endif
+                  </div>
+                </div>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             <!-- /.card -->
-        
-@include('footer-admin')
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+@include('admin.footer-admin')
+</div>
+<!-- ./wrapper -->
 </body>
 </html>

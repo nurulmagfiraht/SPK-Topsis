@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Outlet extends Model
+class Divisi extends Model
 {
     use HasFactory;
-    protected $table = 'outlet';
 
+    protected $table = 'divisi';
     protected $fillable = ['nama'];
 
-    public function karyawan()
+    public function departemen()
     {
-        return $this->hasMany(Karyawan::class, 'outlet_id');
+        return $this->belongsTo(Departemen::class);
     }
 }

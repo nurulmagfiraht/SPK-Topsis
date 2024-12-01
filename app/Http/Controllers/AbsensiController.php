@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\KaryawanImport;
 use App\Models\Absensi;
+use App\Models\Divisi;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -18,18 +19,18 @@ class AbsensiController extends Controller
     {
         $query = Absensi::query();
 
-        // Filtering berdasarkan divisi
-        if ($request->has('divisi') && $request->divisi != '') {
-            $query->where('divisi', $request->divisi);
+        // Filtering berdasarkan divisi_id
+        if ($request->has('divisi_id') && $request->divisi_id != '') {
+            $query->where('divisi_id', $request->divisi_id);
         }
 
         // Pagination dengan 15 data per halaman
         $dataKaryawan = $query->paginate(20);
 
         // Ambil semua divisi untuk dropdown filter
-        $divisiList = Absensi::select('divisi')->distinct()->get();
+        $divisiList = Divisi::all();
 
-        return view('admin-absensi', compact('dataKaryawan', 'divisiList'));
+        return view('admin.admin-absensi', compact('dataKaryawan', 'divisiList'));
     }
     
     public function import(Request $request)

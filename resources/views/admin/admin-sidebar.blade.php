@@ -168,6 +168,14 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="admin-kpi" class="nav-link">
+                            <i class="nav-icon fas fa-calculator"></i>
+                            <p>
+                                KPI
+                            </p>
+                        </a>
+                    </li>
 
                     </li>
                 </ul>

@@ -4,22 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Jabatan;
+use App\Models\Divisi;
+use App\Models\Outlet;
 
 class Karyawan extends Model
 {
     use HasFactory;
-    protected $table = 'karyawan'; // Nama tabel di database
-    
-    // Field yang akan digunakan
-    protected $fillable = ['id', 'nama', 'divisi'];
-    
-    // public function index()
-    // {
-    //     // Ambil data ID Karyawan, Nama, dan Divisi dari absensi
-    //     $dataKaryawan = Absensi::with('karyawan')
-    //                            ->select('id_karyawan', 'jumlah_hadir')
-    //                            ->get();
+    protected $table = 'data_karyawan';
 
-    //     return view('penilaian-kpi', compact('dataKaryawan'));
-    // }
+    protected $fillable = ['nama', 'jabatan_id', 'divisi_id', 'outlet_id'];
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'jabatan_id');
+    }
+
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class, 'divisi_id');
+    }
+
+    public function outlet()
+    {
+        return $this->belongsTo(Outlet::class, 'outlet_id');
+    }
 }
