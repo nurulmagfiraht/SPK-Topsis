@@ -14,10 +14,10 @@ class DepartemenController extends Controller
     }
 
     public function show($departemenId)
-{
-    $departemen = Departemen::findOrFail($departemenId);
-    $divisiList = $departemen->divisi; // Asumsikan ada relasi 'divisi' di model Departemen
-
-    return view('admin.admin-departemen', compact('departemen', 'divisiList'));
-}
+    {
+        $departemenList = Departemen::all();
+        $departemen = Departemen::findOrFail($departemenId);
+        $divisiList = $departemen->divisi()->get();
+        return view('admin.admin-showdivisi', compact('departemenList', 'departemen', 'divisiList'));
+    }
 } 

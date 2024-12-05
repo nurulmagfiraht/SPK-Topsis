@@ -50,7 +50,7 @@ Route::post('/admin-absensi', [AbsensiController::class,'import'])->name('admin.
 
 Route::get('/admin-departemen', [DepartemenController::class, 'index'])->name('admin-departemen.index');
 
-Route::get('/admin-departemen/{departemen}', [DepartemenController::class, 'show'])->name('admin-departemen.show');
+Route::get('/admin-departemen/{departemen}', [DepartemenController::class, 'show'])->name('admin-showdivisi.show');
 
 // Rute untuk KPI
 Route::resource('kpi', KPIController::class);

@@ -31,7 +31,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Daftar Departemen</h1>
+                            <h1>Departemen: {{ $departemen->nama }}</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -53,24 +53,22 @@
                                     <h3 class="card-title">Daftar Divisi</h3>
                                 </div>
                                 <div class="card-body">
-                                    @if(isset($divisiList))
-                                        <table class="table table-bordered">
-                                            <thead>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nama Divisi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($divisiList as $divisi)
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Nama Divisi</th>
+                                                    <td>{{ $divisi->id }}</td>
+                                                    <td>{{ $divisi->nama }}</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($divisiList as $divisi)
-                                                    <tr>
-                                                        <td>{{ $divisi->id }}</td>
-                                                        <td>{{ $divisi->nama }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
