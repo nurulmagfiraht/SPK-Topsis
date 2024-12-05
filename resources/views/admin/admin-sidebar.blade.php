@@ -73,7 +73,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="admin" class="nav-link">
+                        <a href="/admin" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -88,7 +88,7 @@
             </a>
           </li> --}}
                     <li class="nav-item">
-                        <a href="admin-absensi" class="nav-link">
+                        <a href="/admin-absensi" class="nav-link">
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>
                                 Absensi Karyawan
@@ -126,13 +126,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="admin-penilaian" class="nav-link">
+                                <a href="/admin-penilaian" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Penilaian KPI Karyawan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="admin-hasilspk" class="nav-link">
+                                <a href="/admin-hasilspk" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>SPK Bonus Karyawan</p>
                                 </a>
@@ -148,7 +148,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-kpi" class="nav-link">
+                        <a href="/admin-kpi" class="nav-link">
                             <i class="nav-icon fas fa-calculator"></i>
                             <p>
                                 KPI
