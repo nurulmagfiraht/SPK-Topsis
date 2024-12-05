@@ -16,9 +16,9 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  @include('admin-navbar')
+  @include('admin.admin-navbar')
 
-  @include('admin-sidebar')
+  @include('admin.admin-sidebar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -56,6 +56,7 @@
                       <th>ID Karyawan</th>
                       <th>Nama Karyawan</th>
                       <th>Divisi</th>
+                      <th>Outlet</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -63,27 +64,44 @@
                     @foreach ($dataKaryawan as $key => $Karyawan) 
                     <tr>
                       <td>{{ $Karyawan->id }}</td>
-                      <td>{{ $Karyawan->nama }}</td>
-                      <td>{{ $Karyawan->divisi }}</td>
+                      <td>{{ $Karyawan->nama }}</td>  
+                      <td>{{ $Karyawan->divisi->nama }}</td>
+                      <td>{{ $Karyawan->outlet->nama ?? 'Outlet tidak ditemukan' }}</td>
                       <td><a href="{{ route('edit-penilaiankaryawan.index', $Karyawan->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        @if ($dataKaryawan->onFirstPage())
+                            <span class="btn btn-sm btn-secondary ml-2 disabled">Sebelumnya</span>
+                        @else
+                            <a href="{{ $dataKaryawan->previousPageUrl() }}" class="btn btn-sm btn-primary ml-2">Sebelumnya</a>
+                        @endif
+                        @if ($dataKaryawan->hasMorePages())
+                            <a href="{{ $dataKaryawan->nextPageUrl() }}" class="btn btn-sm btn-primary ml-2">Berikutnya</a>
+                        @endif
+                    </div>
+                    <div>
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            @foreach ($dataKaryawan->getUrlRange(1, $dataKaryawan->lastPage()) as $page => $url)
+                                <li class="page-item {{ $page == $dataKaryawan->currentPage() ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
               </div>
+              
+              </div>
+
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             <!-- /.card -->
         
-@include('footer-admin')
+@include('admin.footer-admin')
 </body>
 </html>

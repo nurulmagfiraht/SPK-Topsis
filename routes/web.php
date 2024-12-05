@@ -54,3 +54,5 @@ Route::get('/admin-departemen/{departemen}', [DepartemenController::class, 'show
 
 // Rute untuk KPI
 Route::resource('kpi', KPIController::class);
+
+Route::post('/edit-penilaiankaryawan', [PenilaianKaryawan::class, 'store'])->name('edit-penilaiankaryawan.store');

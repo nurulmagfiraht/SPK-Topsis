@@ -65,71 +65,31 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <!-- form start -->
-                                    <form>
+                                    <form action="{{ route('edit-penilaiankaryawan.store')}}" method="POST">
+                                        @csrf
                                         <div class="form-group">
                                             <label for="namaKaryawan">Nama Karyawan</label>
-                                            <input type="text" class="form-control" id="namaKaryawan" placeholder="Nama Karyawan" value="{{ $karyawan->nama }}">
+                                            <input type="text" class="form-control" id="namaKaryawan" placeholder="Nama Karyawan" value="{{ $karyawan->nama }}" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="divisi">Divisi</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Divisi" value="">
+                                            <input type="text" class="form-control" id="divisi" placeholder="Divisi" value="{{ $divisi->nama }}" readonly>
                                         </div>
                                         <div class="form-group">
-                                            <label for="divisi">Kriteria 1</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 1" value="    ">
+                                            <label for="kehadiran">Kehadiran</label>
+                                            <input type="number" class="form-control" id="kehadiran" placeholder="Kehadiran" value="{{ $karyawan->jumlah_hadir }}" readonly>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 2</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 2" value="    ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 3</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 3" value="    ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 4</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 4" value="    ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 5</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 5" value="    ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 6</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 6" value="    ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 7</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 7" value="    ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 8</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 8" value="    ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 9</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 9" value="    ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="divisi">Kriteria 10</label>
-                                            <input type="text" class="form-control" id="divisi" placeholder="Kriteria 10" value="   ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">File input</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">Upload</span>
+                                        @foreach ($kpiList as $index => $kpi)
+                                            <div class="form-group">
+                                                <label for="kriteria{{ $kpi->id }}">C{{ $index + 1 }}: {{ $kpi->kriteria }}</label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="kriteria{{ $kpi->id }}" name="kriteria{{ $kpi->id }}" placeholder="{{ $kpi->kriteria }}" max="{{ $kpi->bobot }}" min="0">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                        </div>
+                                        @endforeach
                                         <div class="card-footer">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>

@@ -50,21 +50,27 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Daftar Divisi</h3>
+                                    <h3 class="card-title">Daftar KPI</h3>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Nama Divisi</th>
+                                                <th>Simbol</th>
+                                                <th>Kriteria</th>
+                                                <th>Bobot (%)</th>
+                                                <th>Atribut</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($divisiList as $divisi)
+                                            @foreach ($kpiList as $kpi)
                                                 <tr>
-                                                    <td>{{ $divisi->id }}</td>
-                                                    <td>{{ $divisi->nama }}</td>
+                                                    <td>{{ $kpi->id }}</td>
+                                                    <td>{{ $kpi->simbol }}</td>
+                                                    <td>{{ $kpi->kriteria }}</td>
+                                                    <td>{{ $kpi->bobot }}%</td>
+                                                    <td>{{ $kpi->atribut }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

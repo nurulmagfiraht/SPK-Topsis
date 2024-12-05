@@ -106,11 +106,21 @@
                         <ul class="nav nav-treeview">
                             @foreach ($departemenList as $departemen)
                                 <li class="nav-item">
-                                    <a href="{{ route('admin-showdivisi.show', ['departemen' => $departemen->id]) }}"
-                                        class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ $departemen->nama }}</p>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach ($departemen->divisi as $divisi)
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin-showdivisi.show', ['departemen' => $departemen->id, 'divisi' => $divisi->id]) }}" class="nav-link">
+                                                    <i class="far fa-dot-circle nav-icon"></i>
+                                                    <p>{{ $divisi->nama }}</p>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </li>
                             @endforeach
                         </ul>

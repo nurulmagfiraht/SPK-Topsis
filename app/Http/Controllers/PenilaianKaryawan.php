@@ -6,6 +6,10 @@ use App\Models\Absensi;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use App\Models\Departemen;
+use App\Models\Outlet;
+use App\Models\Divisi;
+
+
 class PenilaianKaryawan extends Controller
 {
     /**
@@ -15,8 +19,11 @@ class PenilaianKaryawan extends Controller
     {
         $karyawan = Absensi::find($id);
         $departemenList = Departemen::all();
+        $outletList = Outlet::all();
+        $divisi = $karyawan->divisi;
+        $kpiList = $divisi->kpi;
 
-        return view ("admin.edit-penilaiankaryawan", compact("karyawan", "departemenList"));
+        return view ("admin.edit-penilaiankaryawan", compact("karyawan", "departemenList", "outletList", "divisi", "kpiList"));
 
         
     }
@@ -34,7 +41,23 @@ class PenilaianKaryawan extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'karyawan_id' => 'required|exists:karyawan,id',
+            'kriteria1' => 'required|integer|min:0',
+            'kriteria2' => 'required|integer|min:0',
+            'kriteria3' => 'required|integer|min:0',
+            'kriteria4' => 'required|integer|min:0',
+            'kriteria5' => 'required|integer|min:0',
+            'kriteria6' => 'required|integer|min:0',
+            'kriteria7' => 'required|integer|min:0',
+            'kriteria8' => 'required|integer|min:0',
+            'kriteria9' => 'required|integer|min:0',
+            'kriteria10' => 'required|integer|min:0',
+        ]);
+
+        PenilaianKaryawan::create($validatedData);
+
+        return redirect()->route('admin-penilaian.index')->with('success', 'Penilaian karyawan berhasil disimpan.');
     }
 
     /**
