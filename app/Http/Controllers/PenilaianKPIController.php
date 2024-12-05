@@ -10,15 +10,20 @@ use App\Models\Outlet;
 class PenilaianKPIController extends Controller
 {
     public function index()
-    {
-        // Ambil data ID Karyawan, Nama, dan Divisi dari absensi melalui relasi dengan model Karyawan
-        // Contoh query dengan eager loading
-        $dataKaryawan = Absensi::with('outlet')->paginate(15);
-        $departemenList = Departemen::paginate(15);
-        $outletList = Outlet::all();
+{
+    // Ambil data karyawan yang memiliki absensi
+    $dataKaryawan = Absensi::with(['dataKaryawan.divisi', 'dataKaryawan.outlet'])
+        ->whereHas('dataKaryawan', function($query) {
+            $query->whereNotNull('outlet_id');
+        })
+        ->whereNotNull('data_karyawan_id')
+        ->paginate(15); // Panggil paginate di sini, bukan setelah get()
 
-        return view('admin.admin-penilaian', compact('dataKaryawan', 'departemenList', 'outletList'));
-    }
+    $departemenList = Departemen::paginate(15);
+    $outletList = Outlet::all();
+
+    return view('admin.admin-penilaian', compact('dataKaryawan', 'departemenList', 'outletList'));
+}
 
     /**
      * Show the form for creating a new resource.

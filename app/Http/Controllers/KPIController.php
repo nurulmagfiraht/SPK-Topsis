@@ -18,8 +18,10 @@ class KPIController extends Controller
         $kpiList = KPI::where('divisi_id', $divisiId)->paginate(10);
         $divisiList = Divisi::all();
         $departemenList = Departemen::all();
+        $divisi = Divisi::find($divisiId);
+        $departemen = $divisi ? $divisi->departemen : null;
 
-        return view('admin.admin-showdivisi', compact('kpiList', 'divisiList', 'departemenList'));
+        return view('admin.admin-showdivisi', compact('kpiList', 'divisiList', 'departemenList', 'divisi', 'departemen'));
     }
     /**
      * Show the form for creating a new resource.

@@ -64,18 +64,18 @@
                   <tbody>
                     @foreach ($dataKaryawan as $key => $Karyawan) 
                     <tr>
-                      <td>{{ $Karyawan->id }}</td>
-                      <td>{{ $Karyawan->nama }}</td>  
-                      <td>{{ $Karyawan->divisi->nama }}</td>
-                      <td>{{ $Karyawan->outlet->nama ?? 'Outlet tidak ditemukan' }}</td>
+                      <td>{{ $Karyawan->dataKaryawan->id ?? 'ID tidak ditemukan' }}</td>
+                      <td>{{ $Karyawan->dataKaryawan->nama ?? 'Nama tidak ditemukan' }}</td>  
+                      <td>{{ $Karyawan->dataKaryawan->divisi->nama ?? 'Divisi tidak ditemukan' }}</td>
+                      <td>{{ $Karyawan->dataKaryawan->outlet->nama ?? 'Outlet tidak ditemukan' }}</td>
                       <td>
-                        @if($Karyawan->penilaian)
-                          <span class="badge badge-success">Selesai</span>
+                        @if($Karyawan->dataKaryawan->penilaian)
+                          <span class="badge badge-success">Selesai</span>  
                         @else
                           <span class="badge badge-warning">Belum</span>
                         @endif
                       </td>
-                      <td><a href="{{ route('edit-penilaiankaryawan.index', $Karyawan->id) }}" class="btn btn-info btn-sm">Edit</a></td>
+                      <td><a href="{{ route('edit-penilaiankaryawan.index', $Karyawan->dataKaryawan->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                     </tr>
                     @endforeach
                   </tbody>

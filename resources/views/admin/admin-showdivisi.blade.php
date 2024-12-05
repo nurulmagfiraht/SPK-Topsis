@@ -87,6 +87,7 @@
                                                 @include('admin.kpi.create')
                                                 @include('admin.kpi.edit', ['item' => $kpi])
                                             @endforeach
+                                            @include('admin.kpi.create')
                                         </tbody>
                                     </table>
                                 </div>

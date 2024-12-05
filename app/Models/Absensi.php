@@ -35,4 +35,9 @@ class Absensi extends Model
     {
         return $this->belongsTo(Outlet::class, 'outlet_id');
     }
+
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class, 'data_karyawan_id');
+    }
 }

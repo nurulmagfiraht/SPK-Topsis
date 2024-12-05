@@ -8,6 +8,7 @@ use App\Models\Jabatan;
 use App\Models\Divisi;
 use App\Models\Outlet;
 use App\Models\PenilaianKaryawanModel;
+use App\Models\Absensi;
 
 class Karyawan extends Model
 {
@@ -32,7 +33,12 @@ class Karyawan extends Model
     }
 
     public function penilaian()
-{
-    return $this->hasOne(PenilaianKaryawanModel::class, 'karyawan_id');
-}
+    {
+        return $this->hasOne(PenilaianKaryawanModel::class, 'karyawan_id');
+    }
+
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class, 'data_karyawan_id');
+    }
 }
