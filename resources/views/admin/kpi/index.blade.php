@@ -60,7 +60,7 @@
                       <th>Simbol</th>
                       <th>Kriteria</th>
                       <th>Bobot</th>
-                      <th>Atribut</th>
+                      {{-- <th>Atribut</th> --}}
                       <th>Divisi</th>
                       <th>Aksi</th>
                     </tr>
@@ -71,7 +71,7 @@
                       <td>{{ $item->simbol }}</td>
                       <td>{{ $item->kriteria }}</td>
                       <td>{{ $item->bobot }}%</td>
-                      <td>{{ $item->atribut }}</td>
+                      {{-- <td>{{ $item->atribut }}</td> --}}
                       <td>{{ $item->divisi->nama ?? 'Tidak ada divisi' }}</td>
                       <td>
                         <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editKpiModal-{{ $item->id }}">Edit</a>

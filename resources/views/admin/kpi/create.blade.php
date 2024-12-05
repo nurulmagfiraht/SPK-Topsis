@@ -11,6 +11,7 @@
             <div class="modal-body">
                 <form action="{{ route('kpi.store') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="departemen_id" value="{{ $departemen->id }}">
                     <div class="form-group">
                         <label for="simbol">Simbol</label>
                         <input type="text" class="form-control" id="simbol" name="simbol" required>
@@ -21,12 +22,12 @@
                     </div>
                     <div class="form-group">
                         <label for="bobot">Bobot</label>
-                        <input type="number" class="form-control" id="bobot" name="bobot" required>
+                        <input type="number" class="form-control" id="bobot" name="bobot" required min="0" max="100">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="atribut">Atribut</label>
                         <input type="text" class="form-control" id="atribut" name="atribut">
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="divisi_id">Divisi</label>
                         <select class="form-control" id="divisi_id" name="divisi_id" required>
@@ -47,14 +48,16 @@
                 </form>
             </div>
             @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                <div class="alert alert-danger">
+                    <h4>Terjadi Kesalahan:</h4>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <p>Silakan periksa kembali data yang Anda masukkan dan coba lagi.</p>
+                </div>
+            @endif
         </div>
     </div>
 </div>

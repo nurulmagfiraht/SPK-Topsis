@@ -16,7 +16,6 @@ class CreateKpiTable extends Migration
             $table->string('simbol');
             $table->string('kriteria');
             $table->integer('bobot');
-            $table->string('atribut');
             $table->foreignId('departemen_id')->constrained('departemen');
             $table->foreignId('divisi_id')->constrained('divisi');
             $table->timestamps();

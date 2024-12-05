@@ -14,7 +14,6 @@ class KPI extends Model
         'simbol',
         'kriteria',
         'bobot',
-        'atribut',
         'departemen_id',
         'divisi_id',
     ];

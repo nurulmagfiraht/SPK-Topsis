@@ -16,6 +16,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -32,6 +34,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1>Departemen: {{ $departemen->nama }}</h1>
+                            <h2>Divisi: {{ $divisi->nama }}</h2>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -63,7 +66,6 @@
                                                 <th>Simbol</th>
                                                 <th>Kriteria</th>
                                                 <th>Bobot (%)</th>
-                                                <th>Atribut</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -74,20 +76,18 @@
                                                     <td>{{ $kpi->simbol }}</td>
                                                     <td>{{ $kpi->kriteria }}</td>
                                                     <td>{{ $kpi->bobot }}%</td>
-                                                    <td>{{ $kpi->atribut }}</td>
                                                     <td>
                                                         <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editKpiModal-{{ $kpi->id }}">Edit</a>
                                                         
-                                                        <form action="{{ route('kpi.destroy', $kpi->id) }}" method="POST" style="display:inline;">
+                                                        <form action="{{ route('kpi.destroy', $kpi->id) }}" method="POST" class="delete-form" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus KPI ini?')">Hapus</button>
+                                                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                                         </form>
                                                     </td>
                                                 </tr>
-                                                {{-- create --}}
-                                                @include('kpi.create')
-                                                @include('kpi.edit', ['item' => $kpi])
+                                                @include('admin.kpi.create')
+                                                @include('admin.kpi.edit', ['item' => $kpi])
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -104,6 +104,40 @@
 
         @include('admin.footer-admin')
     </div>
+    @if(session('status'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '{{ session('status') }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteForms = document.querySelectorAll('.delete-form');
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda tidak akan dapat mengembalikan data ini!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

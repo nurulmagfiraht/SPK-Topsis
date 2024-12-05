@@ -8,9 +8,19 @@
         </button>
       </div>
       <div class="modal-body">
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
         <form action="{{ route('kpi.update', $item->id) }}" method="POST">
           @csrf
           @method('PUT')
+          <input type="hidden" name="departemen_id" value="{{ $departemen->id }}">
           <div class="form-group">
             <label for="simbol">Simbol</label>
             <input type="text" class="form-control" id="simbol" name="simbol" value="{{ $item->simbol }}" required>
@@ -21,12 +31,12 @@
           </div>
           <div class="form-group">
             <label for="bobot">Bobot</label>
-            <input type="number" class="form-control" id="bobot" name="bobot" value="{{ $item->bobot }}" required>
+            <input type="number" class="form-control" id="bobot" name="bobot" min="0" max="100" value="{{ $item->bobot }}" required>
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="atribut">Atribut</label>
             <input type="text" class="form-control" id="atribut" name="atribut" value="{{ $item->atribut }}" >
-          </div>
+          </div> --}}
           <div class="form-group">
             <label for="divisi_id">Divisi</label>
             <select class="form-control" id="divisi_id" name="divisi_id" required>
