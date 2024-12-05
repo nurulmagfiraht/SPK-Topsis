@@ -64,9 +64,19 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <!-- form start -->
                                     <form action="{{ route('edit-penilaiankaryawan.store')}}" method="POST">
                                         @csrf
+                                        <input type="hidden" name="karyawan_id" value="{{ $karyawan->id }}">
                                         <div class="form-group">
                                             <label for="namaKaryawan">Nama Karyawan</label>
                                             <input type="text" class="form-control" id="namaKaryawan" placeholder="Nama Karyawan" value="{{ $karyawan->nama }}" readonly>
@@ -83,7 +93,7 @@
                                             <div class="form-group">
                                                 <label for="kriteria{{ $kpi->id }}">C{{ $index + 1 }}: {{ $kpi->kriteria }}</label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="kriteria{{ $kpi->id }}" name="kriteria{{ $kpi->id }}" placeholder="{{ $kpi->kriteria }}" max="{{ $kpi->bobot }}" min="0">
+                                                    <input type="number" class="form-control" id="kriteria{{ $kpi->id }}" name="c{{ $index + 1 }}" placeholder="{{ $kpi->kriteria }}" max="{{ $kpi->bobot }}" min="0">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">%</span>
                                                     </div>
