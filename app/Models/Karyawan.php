@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Jabatan;
 use App\Models\Divisi;
 use App\Models\Outlet;
+use App\Models\PenilaianKaryawanModel;
 
 class Karyawan extends Model
 {
@@ -29,4 +30,9 @@ class Karyawan extends Model
     {
         return $this->belongsTo(Outlet::class, 'outlet_id');
     }
+
+    public function penilaian()
+{
+    return $this->hasOne(PenilaianKaryawanModel::class, 'karyawan_id');
+}
 }

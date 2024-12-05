@@ -62,7 +62,6 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
                                                 <th>Simbol</th>
                                                 <th>Kriteria</th>
                                                 <th>Bobot (%)</th>
@@ -72,7 +71,6 @@
                                         <tbody>
                                             @foreach ($kpiList as $kpi)
                                                 <tr>
-                                                    <td>{{ $kpi->id }}</td>
                                                     <td>{{ $kpi->simbol }}</td>
                                                     <td>{{ $kpi->kriteria }}</td>
                                                     <td>{{ $kpi->bobot }}%</td>

@@ -2,7 +2,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editKpiModalLabel">Edit KPI</h5>
+        <h5 class="modal-title" id="editKpiModalLabel">Edit KPI untuk Divisi: {{ $divisi->nama }} di Departemen: {{ $departemen->nama }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -21,6 +21,7 @@
           @csrf
           @method('PUT')
           <input type="hidden" name="departemen_id" value="{{ $departemen->id }}">
+          <input type="hidden" name="divisi_id" value="{{ $divisi->id }}">
           <div class="form-group">
             <label for="simbol">Simbol</label>
             <input type="text" class="form-control" id="simbol" name="simbol" value="{{ $item->simbol }}" required>
@@ -37,7 +38,7 @@
             <label for="atribut">Atribut</label>
             <input type="text" class="form-control" id="atribut" name="atribut" value="{{ $item->atribut }}" >
           </div> --}}
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="divisi_id">Divisi</label>
             <select class="form-control" id="divisi_id" name="divisi_id" required>
               @foreach($divisiList as $divisi)
@@ -46,7 +47,7 @@
                 </option>
               @endforeach
             </select>
-          </div>
+          </div> --}}
           <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         </form>
       </div>

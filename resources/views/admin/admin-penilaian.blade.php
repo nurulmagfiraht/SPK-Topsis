@@ -57,6 +57,7 @@
                       <th>Nama Karyawan</th>
                       <th>Divisi</th>
                       <th>Outlet</th>
+                      <th>Status</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -67,6 +68,13 @@
                       <td>{{ $Karyawan->nama }}</td>  
                       <td>{{ $Karyawan->divisi->nama }}</td>
                       <td>{{ $Karyawan->outlet->nama ?? 'Outlet tidak ditemukan' }}</td>
+                      <td>
+                        @if($Karyawan->penilaian)
+                          <span class="badge badge-success">Selesai</span>
+                        @else
+                          <span class="badge badge-warning">Belum</span>
+                        @endif
+                      </td>
                       <td><a href="{{ route('edit-penilaiankaryawan.index', $Karyawan->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                     </tr>
                     @endforeach

@@ -44,7 +44,7 @@ class KPIController extends Controller
 
         KPI::create($validatedData);
 
-        return redirect()->route('admin-showdivisi.show', $validatedData['departemen_id'])->with('status', 'KPI baru berhasil ditambahkan.');
+        return redirect()->route('admin-showdivisi.show', [$validatedData['departemen_id'], $validatedData['divisi_id']])->with('status', 'KPI baru berhasil ditambahkan.');
     }
 
     /**
@@ -81,7 +81,7 @@ class KPIController extends Controller
         $kpi = KPI::findOrFail($id);
         $kpi->update($validatedData);
 
-        return redirect()->route('admin-showdivisi.show', $validatedData['departemen_id'])->with('status', 'KPI berhasil diperbarui.');
+        return redirect()->route('admin-showdivisi.show', [$validatedData['departemen_id'], $validatedData['divisi_id']])->with('status', 'KPI berhasil diperbarui.');
     }
 
     /**
@@ -92,7 +92,6 @@ class KPIController extends Controller
         $kpi = KPI::findOrFail($id);
         $departemenId = $kpi->divisi->departemen_id;
         $kpi->delete();
-
-        return redirect()->route('admin-showdivisi.show', $departemenId)->with('status', 'KPI berhasil dihapus.');
+        return redirect()->route('admin-showdivisi.show', [$departemenId, $kpi->divisi_id])->with('status', 'KPI berhasil dihapus.');
     }
 }
