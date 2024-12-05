@@ -51,6 +51,9 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Daftar KPI</h3>
+                                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createKpiModal">
+                                        Tambah KPI
+                                    </button>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered">
@@ -61,6 +64,7 @@
                                                 <th>Kriteria</th>
                                                 <th>Bobot (%)</th>
                                                 <th>Atribut</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,7 +75,19 @@
                                                     <td>{{ $kpi->kriteria }}</td>
                                                     <td>{{ $kpi->bobot }}%</td>
                                                     <td>{{ $kpi->atribut }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editKpiModal-{{ $kpi->id }}">Edit</a>
+                                                        
+                                                        <form action="{{ route('kpi.destroy', $kpi->id) }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus KPI ini?')">Hapus</button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
+                                                {{-- create --}}
+                                                @include('kpi.create')
+                                                @include('kpi.edit', ['item' => $kpi])
                                             @endforeach
                                         </tbody>
                                     </table>

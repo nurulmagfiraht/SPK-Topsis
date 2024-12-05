@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
-use Illuminate\Http\Request;    
+use Illuminate\Http\Request;
 use App\Models\Departemen;
 use App\Models\Outlet;
 
@@ -12,11 +12,12 @@ class PenilaianKPIController extends Controller
     public function index()
     {
         // Ambil data ID Karyawan, Nama, dan Divisi dari absensi melalui relasi dengan model Karyawan
-        $dataKaryawan = Absensi::paginate(15);
+        // Contoh query dengan eager loading
+        $dataKaryawan = Absensi::with('outlet')->paginate(15);
         $departemenList = Departemen::paginate(15);
         $outletList = Outlet::all();
 
-        return view('admin.admin-penilaian', compact('dataKaryawan', 'departemenList', 'outletList' ));
+        return view('admin.admin-penilaian', compact('dataKaryawan', 'departemenList', 'outletList'));
     }
 
     /**

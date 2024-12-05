@@ -6,6 +6,7 @@ use App\Models\KPI;
 use App\Models\Divisi;
 use Illuminate\Http\Request;
 use App\Models\Departemen;
+use Illuminate\Support\Facades\Log;
 
 class KPIController extends Controller
 {
@@ -18,14 +19,14 @@ class KPIController extends Controller
         $divisiList = Divisi::all();
         $departemenList = Departemen::all();
 
-        return view('kpi.index', compact('kpi', 'divisiList', 'departemenList'));
+        return view('admin.admin-showdivisi', compact('kpi', 'divisiList', 'departemenList'));
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('kpi.create');
+        return view('admin.admin-showdivisi');
     }
 
     /**
@@ -44,7 +45,7 @@ class KPIController extends Controller
 
         KPI::create($validatedData);
 
-        return redirect()->route('kpi.index')->with('status', 'KPI baru berhasil ditambahkan.');
+        return view('admin.admin-showdivisi')->with('status', 'KPI baru berhasil ditambahkan.');
     }
 
     /**
@@ -53,7 +54,7 @@ class KPIController extends Controller
     public function show($id)
     {
         $kpi = KPI::findOrFail($id);
-        return view('kpi.show', compact('kpi'));
+        return view('admin.admin-showdivisi', compact('kpi'));
     }
 
     /**
@@ -62,7 +63,7 @@ class KPIController extends Controller
     public function edit($id)
     {
         $kpi = KPI::findOrFail($id);
-        return view('kpi.edit', compact('kpi'));
+        return view('admin.admin-showdivisi', compact('kpi'));
     }
 
     /**
@@ -82,7 +83,7 @@ class KPIController extends Controller
         $kpi = KPI::findOrFail($id);
         $kpi->update($validatedData);
 
-        return redirect()->route('kpi.index')->with('status', 'KPI berhasil diperbarui.');
+        return view('admin.admin-showdivisi')->with('status', 'KPI berhasil diperbarui.');
     }
 
     /**
@@ -93,6 +94,6 @@ class KPIController extends Controller
         $kpi = KPI::findOrFail($id);
         $kpi->delete();
 
-        return redirect()->route('kpi.index')->with('status', 'KPI berhasil dihapus.');
+        return view('admin.admin-showdivisi')->with('status', 'KPI berhasil dihapus.');
     }
 }

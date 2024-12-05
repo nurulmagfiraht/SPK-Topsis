@@ -30,4 +30,9 @@ class Absensi extends Model
     {
         return $this->belongsTo(Divisi::class, 'divisi_id');
     }
+
+    public function outlet()
+    {
+        return $this->belongsTo(Outlet::class, 'outlet_id');
+    }
 }

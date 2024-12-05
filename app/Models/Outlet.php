@@ -16,4 +16,9 @@ class Outlet extends Model
     {
         return $this->hasMany(Karyawan::class, 'outlet_id');
     }
+
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class, 'outlet_id');
+    }
 }
