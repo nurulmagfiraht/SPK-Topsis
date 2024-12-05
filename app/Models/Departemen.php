@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Departemen extends Model
 {
     use HasFactory;
+    protected $table = 'departemen';
+
+    protected $fillable = [
+        'nama',
+    ];
+
+    public function divisi()
+    {
+        return $this->hasMany(Divisi::class);
+    }
 }

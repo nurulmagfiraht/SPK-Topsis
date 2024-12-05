@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use Illuminate\Http\Request;
-
+use App\Models\Departemen;
 class PenilaianKPIController extends Controller
 {
     public function index()
     {
         // Ambil data ID Karyawan, Nama, dan Divisi dari absensi melalui relasi dengan model Karyawan
         $dataKaryawan = Absensi::all();
+        $departemenList = Departemen::all();
 
-        return view('admin.admin-penilaian', compact('dataKaryawan'));
+        return view('admin.admin-penilaian', compact('dataKaryawan', 'departemenList'));
     }
 
     /**

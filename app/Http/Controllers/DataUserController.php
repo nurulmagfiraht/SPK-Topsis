@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Departemen;
 
 class DataUserController extends Controller
 {
@@ -11,7 +12,8 @@ class DataUserController extends Controller
      */
     public function index()
     {
-        return view ("admin.admin-datauser");
+        $departemenList = Departemen::all();
+        return view ("admin.admin-datauser", compact('departemenList'));
     }
 
     /**

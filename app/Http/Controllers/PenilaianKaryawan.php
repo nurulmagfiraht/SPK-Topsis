@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
-
+use App\Models\Departemen;
 class PenilaianKaryawan extends Controller
 {
     /**
@@ -14,8 +14,9 @@ class PenilaianKaryawan extends Controller
     public function index($id)
     {
         $karyawan = Absensi::find($id);
+        $departemenList = Departemen::all();
 
-        return view ("admin.edit-penilaiankaryawan", compact("karyawan"));
+        return view ("admin.edit-penilaiankaryawan", compact("karyawan", "departemenList"));
 
         
     }

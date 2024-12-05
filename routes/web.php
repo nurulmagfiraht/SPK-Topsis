@@ -7,6 +7,8 @@ use App\Http\Controllers\KPIController;
 use App\Http\Controllers\PenilaianKaryawan;
 use App\Http\Controllers\PenilaianKPIController;
 use App\Http\Controllers\SPKController;
+use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
-    return view('admin.admin');
-});
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
 Route::get('/cobekgurih', function () {
     return view('cobekgurih');
@@ -47,6 +47,10 @@ Route::get('/edit-penilaiankaryawan/{id}', [PenilaianKaryawan::class,'index'])->
 Route::get('/admin-hasilspk', [SPKController::class,'index'])->name('admin-hasilspk.index');
 
 Route::post('/admin-absensi', [AbsensiController::class,'import'])->name('admin.absensi.index');
+
+Route::get('/admin-departemen', [DepartemenController::class, 'index'])->name('admin-departemen.index');
+
+Route::get('/admin-departemen/{departemen}', [DepartemenController::class, 'show'])->name('admin-departemen.show');
 
 // Rute untuk KPI
 Route::resource('kpi', KPIController::class);

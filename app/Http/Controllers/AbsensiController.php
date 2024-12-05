@@ -7,6 +7,7 @@ use App\Models\Absensi;
 use App\Models\Divisi;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Departemen;
 
 // $dataKaryawan = AbsensiController::all();
 class AbsensiController extends Controller
@@ -18,6 +19,7 @@ class AbsensiController extends Controller
     public function index(Request $request)
     {
         $query = Absensi::query();
+        $departemenList = Departemen::all();
 
         // Filtering berdasarkan divisi_id
         if ($request->has('divisi_id') && $request->divisi_id != '') {
@@ -30,7 +32,7 @@ class AbsensiController extends Controller
         // Ambil semua divisi untuk dropdown filter
         $divisiList = Divisi::all();
 
-        return view('admin.admin-absensi', compact('dataKaryawan', 'divisiList'));
+        return view('admin.admin-absensi', compact('dataKaryawan', 'divisiList', 'departemenList'));
     }
     
     public function import(Request $request)

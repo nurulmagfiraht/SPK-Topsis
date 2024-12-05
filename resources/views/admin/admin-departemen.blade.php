@@ -31,7 +31,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Departemen</h1>
+                            <h1>Departemen: {{ $departemen->nama }}</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -50,21 +50,21 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Daftar Departemen</h3>
+                                    <h3 class="card-title">Daftar Divisi</h3>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Nama Departemen</th>
+                                                <th>Nama Divisi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($departemenList as $departemen)
+                                            @foreach ($divisiList as $divisi)
                                                 <tr>
-                                                    <td>{{ $departemen->id }}</td>
-                                                    <td>{{ $departemen->nama }}</td>
+                                                    <td>{{ $divisi->id }}</td>
+                                                    <td>{{ $divisi->nama }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -73,8 +73,15 @@
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- /.content-wrapper -->
 
-                            @include('admin.footer-admin')
+        @include('admin.footer-admin')
+    </div>
 </body>
 
 </html>

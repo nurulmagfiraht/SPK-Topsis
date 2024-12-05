@@ -48,6 +48,9 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Daftar KPI</h3>
+                <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createKpiModal">
+                  Tambah KPI
+                </button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -81,6 +84,7 @@
                         </form>
                       </td>
                     </tr>
+                    @include('kpi.create')
                     @include('kpi.edit', ['item' => $item])
                     @endforeach
                   </tbody>
@@ -88,13 +92,18 @@
                 <!-- Pagination -->
                 <div class="d-flex justify-content-between align-items-center mt-3">
                   <div>
-                    @if ($kpi->onFirstPage())
-                      <span class="btn btn-sm btn-secondary ml-2 disabled">Previous</span>
+                    @if($kpi->lastPage() <= 5)
+                      @for ($i = 1; $i <= $kpi->lastPage(); $i++)
+                        <a href="{{ $kpi->url($i) }}" class="{{ $kpi->currentPage() == $i ? 'btn btn-sm btn-primary ml-2 active' : 'btn btn-sm btn-primary ml-2' }}">{{ $i }}</a>
+                      @endfor
                     @else
-                      <a href="{{ $kpi->previousPageUrl() }}" class="btn btn-sm btn-primary ml-2">Previous</a>
-                    @endif
-                    @if ($kpi->hasMorePages())
-                      <a href="{{ $kpi->nextPageUrl() }}" class="btn btn-sm btn-primary ml-2">Next</a>
+                      @for ($i = 1; $i <= 2; $i++)
+                        <a href="{{ $kpi->url($i) }}" class="{{ $kpi->currentPage() == $i ? 'btn btn-sm btn-primary ml-2 active' : 'btn btn-sm btn-primary ml-2' }}">{{ $i }}</a>
+                      @endfor
+                      <span class="btn btn-sm btn-primary ml-2">...</span>
+                      @for ($i = $kpi->lastPage() - 2; $i <= $kpi->lastPage(); $i++)
+                        <a href="{{ $kpi->url($i) }}" class="{{ $kpi->currentPage() == $i ? 'btn btn-sm btn-primary ml-2 active' : 'btn btn-sm btn-primary ml-2' }}">{{ $i }}</a>
+                      @endfor
                     @endif
                   </div>
                 </div>

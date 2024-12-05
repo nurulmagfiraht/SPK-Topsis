@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Departemen;
 class SPKController extends Controller
 {
     /**
@@ -11,7 +11,8 @@ class SPKController extends Controller
      */
     public function index()
     {
-        return view("admin.admin-hasilspk");
+        $departemenList = Departemen::all();
+        return view("admin.admin-hasilspk", compact('departemenList'));
     }
 
     /**

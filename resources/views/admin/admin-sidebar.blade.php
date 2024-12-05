@@ -104,36 +104,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="admin-departemenhall" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Departemen Hall</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="admin-departemenkitchen" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Departemen Kitchen</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="admin-departemenpembakaran" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Departemen Pembakaran</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="admin-departemenbar" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Departemen Bar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="admin-departemenbackoffice" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Departemen Back Office</p>
-                                </a>
-                            </li>
+                            @foreach($departemenList as $departemen)
+                                <li class="nav-item">
+                                    <a href="{{ route('admin-departemen.index', ['departemen' => $departemen->id]) }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>{{ $departemen->nama }}</p>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
 

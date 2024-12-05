@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KPI;
 use App\Models\Divisi;
 use Illuminate\Http\Request;
+use App\Models\Departemen;
 
 class KPIController extends Controller
 {
@@ -15,8 +16,9 @@ class KPIController extends Controller
     {
         $kpi = KPI::paginate(10);
         $divisiList = Divisi::all();
+        $departemenList = Departemen::all();
 
-        return view('kpi.index', compact('kpi', 'divisiList'));
+        return view('kpi.index', compact('kpi', 'divisiList', 'departemenList'));
     }
     /**
      * Show the form for creating a new resource.
@@ -35,8 +37,8 @@ class KPIController extends Controller
             'simbol' => 'required|string',
             'kriteria' => 'required|string',
             'bobot' => 'required|integer',
-            'atribut' => 'required|string',
-            'departemen_id' => 'required|integer',
+            'atribut' => 'nullable|string',
+            'departemen_id' => 'nullable|integer',
             'divisi_id' => 'required|integer',
         ]);
 
