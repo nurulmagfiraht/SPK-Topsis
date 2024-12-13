@@ -8,13 +8,12 @@
     <link href="/img/icon-sc.png" rel="icon">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/admin-template/plugins/fontawesome-free/css/all.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <!-- Bootstrap CSS harus dimuat pertama -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Kemudian CSS lainnya -->
+    <link rel="stylesheet" href="/admin-template/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -121,11 +120,11 @@
 </div>
 
 <!-- Scripts -->
-<script src="/admin-template/plugins/jquery/jquery.min.js"></script>
+<!-- <script src="/admin-template/plugins/jquery/jquery.min.js"></script>
 <script src="/admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/admin-template/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/admin-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="/admin-template/dist/js/adminlte.min.js"></script>
+<script src="/admin-template/dist/js/adminlte.min.js"></script> -->
 
 <script>
 $(document).ready(function() {
