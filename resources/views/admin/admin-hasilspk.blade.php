@@ -57,7 +57,8 @@
                                             <th>Divisi</th>
                                             <th>Outlet</th>
                                             <th>Detail Nilai</th>
-                                            <th>Bonus</th>
+                                            <th>Status Bonus</th>
+                                            <th>Progress</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,40 +69,38 @@
                                             <td>{{ $result['divisi'] }}</td>
                                             <td>{{ $result['outlet'] }}</td>
                                             <td>
-                                                C1: {{ $result['nilai']['c1'] }}%,
-                                                C2: {{ $result['nilai']['c2'] }}%,
-                                                C3: {{ $result['nilai']['c3'] }}%,
-                                                C4: {{ $result['nilai']['c4'] }}%,
-                                                C5: {{ $result['nilai']['c5'] }}%,
-                                                C6: {{ $result['nilai']['c6'] }}%,
-                                                C7: {{ $result['nilai']['c7'] }}%,
-                                                C8: {{ $result['nilai']['c8'] }}%,
-                                                C9: {{ $result['nilai']['c9'] }}%,
-                                                C10: {{ $result['nilai']['c10'] }}%
-                                            </td>
+    <span style="background-color: red; color: white; padding: 5px 10px; border-radius: 5px;">C1</span>: {{ $result['nilai']['c1'] }}%, 
+    <span style="background-color: blue; color: white; padding: 5px 10px; border-radius: 5px;">C2</span>: {{ $result['nilai']['c2'] }}%, 
+    <span style="background-color: green; color: white; padding: 5px 10px; border-radius: 5px;">C3</span>: {{ $result['nilai']['c3'] }}%, 
+    <span style="background-color: orange; color: white; padding: 5px 10px; border-radius: 5px;">C4</span>: {{ $result['nilai']['c4'] }}%, 
+    <span style="background-color: purple; color: white; padding: 5px 10px; border-radius: 5px;">C5</span>: {{ $result['nilai']['c5'] }}%, 
+    <span style="background-color: pink; color: white; padding: 5px 10px; border-radius: 5px;">C6</span>: {{ $result['nilai']['c6'] }}%, 
+    <span style="background-color: brown; color: white; padding: 5px 10px; border-radius: 5px;">C7</span>: {{ $result['nilai']['c7'] }}%, 
+    <span style="background-color: teal; color: white; padding: 5px 10px; border-radius: 5px;">C8</span>: {{ $result['nilai']['c8'] }}%, 
+    <span style="background-color: crimson; color: white; padding: 5px 10px; border-radius: 5px;">C9</span>: {{ $result['nilai']['c9'] }}%, 
+    <span style="background-color: gold; color: black; padding: 5px 10px; border-radius: 5px;">C10</span>: {{ $result['nilai']['c10'] }}%
+</td>
+
+
                                             <td>
-                                                @php
-                                                    $totalNilai = array_sum($result['nilai']);
-                                                    $isPotentialBonus = $totalNilai >= 60;
-                                                @endphp
-                                                <span class="badge {{ $isPotentialBonus ? 'bg-success' : 'bg-danger' }}">
-                                                    {{ $totalNilai }}% - 
-                                                    {{ $isPotentialBonus ? 'Mendapatkan Bonus' : 'Belum Mendapatkan Bonus' }}
+                                                <span class="badge {{ $result['mendapat_bonus'] ? 'bg-success' : 'bg-danger' }}">
+                                                    {{ $result['total_nilai'] }}% - 
+                                                    {{ $result['mendapat_bonus'] ? 'Mendapatkan Bonus' : 'Belum Mendapatkan Bonus' }}
                                                 </span>
                                             </td>
                                             <td>
                                                 <div class="progress progress-xs">
                                                     <div class="progress-bar 
-                                                        @if($totalNilai >= 80)
+                                                        @if($result['total_nilai'] >= 80)
                                                             bg-success
-                                                        @elseif($totalNilai >= 60)
+                                                        @elseif($result['total_nilai'] >= 60)
                                                             bg-primary  
-                                                        @elseif($totalNilai >= 40)
+                                                        @elseif($result['total_nilai'] >= 40)
                                                             bg-warning
                                                         @else
                                                             bg-danger
                                                         @endif"
-                                                        style="width: {{ $totalNilai }}%">
+                                                        style="width: {{ $result['total_nilai'] }}%">
                                                     </div>
                                                 </div>
                                             </td>

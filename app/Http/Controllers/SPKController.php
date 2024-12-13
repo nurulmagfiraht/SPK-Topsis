@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\PenilaianKaryawanModel;
 use App\Models\Karyawan;
+use App\Models\KPI;
 use Illuminate\Http\Request;
 use App\Models\Departemen;
 
 class SPKController extends Controller
 {
+    // Fungsi utama untuk menampilkan hasil perhitungan TOPSIS
     public function index()
     {
+        // Ambil data penilaian karyawan beserta relasi divisi dan outlet
         $penilaianKaryawan = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet'])->get();
+        // Ambil daftar departemen untuk ditampilkan di halaman
         $departemenList = Departemen::all();
-    
+
+        // Jika tidak ada data penilaian karyawan, kembalikan halaman kosong
         if ($penilaianKaryawan->isEmpty()) {
             return view('admin.admin-hasilspk', [
                 'results' => [],
@@ -21,10 +26,18 @@ class SPKController extends Controller
             ]);
         }
 
-        $results = [];
+        // Persiapkan matriks penilaian karyawan
+        $matrix = [];
         foreach ($penilaianKaryawan as $nilai) {
             if (!$nilai->karyawan) continue;
-    
+
+            // Ambil bobot KPI berdasarkan divisi karyawan
+            $kpiBobot = KPI::where('divisi_id', $nilai->karyawan->divisi_id)
+                ->get()
+                ->pluck('bobot', 'simbol')
+                ->toArray();
+
+            // Susun data nilai karyawan
             $nilaiArray = [
                 'c1' => $nilai->c1,
                 'c2' => $nilai->c2,
@@ -38,51 +51,72 @@ class SPKController extends Controller
                 'c10' => $nilai->c10,
             ];
 
-            $results[] = [
+            // Tambahkan data ke matriks utama
+            $matrix[] = [
+                'id_karyawan' => $nilai->karyawan->id,
                 'nama' => $nilai->karyawan->nama,
                 'divisi' => $nilai->karyawan->divisi->nama ?? 'N/A',
                 'outlet' => $nilai->karyawan->outlet->nama ?? 'N/A',
                 'nilai' => $nilaiArray,
-                'total_nilai' => array_sum($nilaiArray),
-                'mendapat_bonus' => array_sum($nilaiArray) >= 60
+                'bobot' => $kpiBobot
             ];
         }
 
-        // Sort by total nilai (descending)
+        // Langkah-langkah metode TOPSIS
+        $normalizedMatrix = $this->normalizeMatrix($matrix); // Normalisasi matriks
+        $weightedMatrix = $this->weightedMatrix($normalizedMatrix); // Matriks berbobot
+        $idealSolutions = $this->findIdealSolutions($weightedMatrix); // Solusi ideal positif dan negatif
+        $distances = $this->calculateDistances($weightedMatrix, $idealSolutions); // Hitung jarak ke solusi ideal
+        $preferences = $this->calculatePreferences($distances); // Hitung skor preferensi
+
+        // Susun hasil akhir untuk ditampilkan
+        $results = [];
+        foreach ($matrix as $data) {
+            $totalNilai = array_sum($data['nilai']); // Total nilai tanpa bobot
+
+            $results[] = [
+                'nama' => $data['nama'],
+                'divisi' => $data['divisi'],
+                'outlet' => $data['outlet'],
+                'nilai' => $data['nilai'],
+                'total_nilai' => $totalNilai,
+                'topsis_score' => isset($preferences[$data['id_karyawan']]) ? $preferences[$data['id_karyawan']] * 100 : 0,
+                'mendapat_bonus' => $totalNilai >= 60 // Kriteria tambahan untuk mendapatkan bonus
+            ];
+        }
+
+        // Urutkan hasil berdasarkan skor TOPSIS secara descending
         usort($results, function($a, $b) {
-            return $b['total_nilai'] - $a['total_nilai'];
+            return $b['topsis_score'] - $a['topsis_score'];
         });
 
+        // Kembalikan hasil ke view
         return view('admin.admin-hasilspk', [
             'results' => $results,
             'departemenList' => $departemenList
         ]);
     }
 
+    // Fungsi untuk normalisasi matriks
     private function normalizeMatrix($matrix)
     {
-        $sumSquared = [
-            'c1' => 0,
-            'c2' => 0,
-            'c3' => 0,
-            'c4' => 0,
-            'c5' => 0,
-            'c6' => 0,
-            'c7' => 0,
-            'c8' => 0,
-            'c9' => 0,
-            'c10' => 0
-        ];
+        $sumSquared = array_fill_keys(array_keys($matrix[0]['nilai']), 0.00001); // Inisialisasi dengan nilai kecil
 
-        // Menghitung jumlah kuadrat
+        // Hitung jumlah kuadrat untuk setiap kriteria
         foreach ($matrix as $row) {
             foreach ($row['nilai'] as $criteria => $value) {
                 $sumSquared[$criteria] += pow($value, 2);
             }
         }
 
+        // Normalisasi nilai dengan rumus nilai / akar jumlah kuadrat
+        $normalized = [];
         foreach ($matrix as $row) {
-            $normalizedRow = ['id_karyawan' => $row['id_karyawan']];
+            $normalizedRow = [
+                'id_karyawan' => $row['id_karyawan'],
+                'bobot' => $row['bobot']
+            ];
+
             foreach ($row['nilai'] as $criteria => $value) {
                 $normalizedRow[$criteria] = $value / sqrt($sumSquared[$criteria]);
             }
@@ -92,13 +126,19 @@ class SPKController extends Controller
         return $normalized;
     }
 
-    private function weightedMatrix($normalizedMatrix, $weights)
+    // Fungsi untuk menghitung matriks berbobot
+    private function weightedMatrix($normalizedMatrix)
     {
         $weighted = [];
         foreach ($normalizedMatrix as $row) {
             $weightedRow = ['id_karyawan' => $row['id_karyawan']];
-            foreach ($row['nilai'] as $criteria => $value) {
-                $weightedRow[$criteria] = $value * $weights[$criteria];
+            $bobot = $row['bobot'];
+
+            foreach ($row as $criteria => $value) {
+                if ($criteria !== 'id_karyawan' && $criteria !== 'bobot') {
+                    $weight = isset($bobot[strtoupper($criteria)]) ? $bobot[strtoupper($criteria)] / 100 : 0;
+                    $weightedRow[$criteria] = $value * $weight;
+                }
             }
             $weighted[] = $weightedRow;
         }
@@ -106,14 +146,17 @@ class SPKController extends Controller
         return $weighted;
     }
 
+    // Fungsi untuk menemukan solusi ideal positif dan negatif
     private function findIdealSolutions($weightedMatrix)
     {
-        // Inisialisasi
+        $positive = [];
+        $negative = [];
+
         foreach (array_keys($weightedMatrix[0]) as $criteria) {
             if ($criteria !== 'id_karyawan') {
                 $values = array_column($weightedMatrix, $criteria);
-                $positive[$criteria] = max($values);
-                $negative[$criteria] = min($values);
+                $positive[$criteria] = max($values); // Solusi ideal positif
+                $negative[$criteria] = min($values); // Solusi ideal negatif
             }
         }
 
@@ -123,6 +166,7 @@ class SPKController extends Controller
         ];
     }
 
+    // Fungsi untuk menghitung jarak ke solusi ideal
     private function calculateDistances($weightedMatrix, $idealSolutions)
     {
         $distances = [];
@@ -139,67 +183,23 @@ class SPKController extends Controller
             }
 
             $distances[$id] = [
-                'positive' => sqrt($positiveDistance),
-                'negative' => sqrt($negativeDistance)
+                'positive' => sqrt($positiveDistance) + 0.00001,
+                'negative' => sqrt($negativeDistance) + 0.00001
             ];
         }
         return $distances;
     }
 
+    // Fungsi untuk menghitung skor preferensi berdasarkan jarak solusi ideal
     private function calculatePreferences($distances)
     {
         $preferences = [];
         foreach ($distances as $id => $distance) {
-            $preferences[$id] = $distance['negative'] / ($distance['positive'] + $distance['negative']);
+            $denominator = ($distance['positive'] + $distance['negative']);
+            $preferences[$id] = $denominator != 0 ? 
+                $distance['negative'] / $denominator : 
+                0;
         }
         return $preferences;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
