@@ -5,81 +5,73 @@ namespace App\Http\Controllers;
 use App\Models\PenilaianKaryawanModel;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use App\Models\Departemen;
 
 class SPKController extends Controller
 {
     public function index()
     {
-        // Ambil semua data penilaian karyawan
-        $penilaianKaryawan = PenilaianKaryawanModel::with('karyawan')->get();
-        
-        // Kriteria dan bobot (sesuaikan dengan kebutuhan)
-        $kriteria = [
-            'quality' => 0.3,        // Bobot kualitas kerja
-            'quantity' => 0.2,       // Bobot kuantitas kerja
-            'timelineness' => 0.2,   // Bobot ketepatan waktu
-            'effectiveness' => 0.15,  // Bobot efektivitas
-            'independence' => 0.15    // Bobot kemandirian
-        ];
-
-        // 1. Membuat matriks keputusan
-        $matriks = [];
-        foreach ($penilaianKaryawan as $nilai) {
-            $matriks[] = [
-                'id_karyawan' => $nilai->id_karyawan,
-                'nama' => $nilai->karyawan->nama_karyawan,
-                'nilai' => [
-                    'quality' => $nilai->quality,
-                    'quantity' => $nilai->quantity,
-                    'timelineness' => $nilai->timelineness,
-                    'effectiveness' => $nilai->effectiveness,
-                    'independence' => $nilai->independence
-                ]
-            ];
+        $penilaianKaryawan = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet'])->get();
+        $departemenList = Departemen::all();
+    
+        if ($penilaianKaryawan->isEmpty()) {
+            return view('admin.admin-hasilspk', [
+                'results' => [],
+                'departemenList' => $departemenList
+            ]);
         }
 
-        // 2. Normalisasi matriks
-        $normalizedMatrix = $this->normalizeMatrix($matriks);
-
-        // 3. Pemberian bobot pada matriks yang telah dinormalisasi
-        $weightedMatrix = $this->weightedMatrix($normalizedMatrix, $kriteria);
-
-        // 4. Menentukan solusi ideal positif dan negatif
-        $idealSolutions = $this->findIdealSolutions($weightedMatrix);
-
-        // 5. Menghitung jarak ke solusi ideal
-        $distances = $this->calculateDistances($weightedMatrix, $idealSolutions);
-
-        // 6. Menghitung nilai preferensi
-        $preferences = $this->calculatePreferences($distances);
-
-        // 7. Mengurutkan hasil berdasarkan nilai preferensi (tertinggi ke terendah)
-        arsort($preferences);
-
-        // Menyiapkan data untuk view
         $results = [];
-        foreach ($preferences as $id => $score) {
-            $karyawan = collect($matriks)->firstWhere('id_karyawan', $id);
+        foreach ($penilaianKaryawan as $nilai) {
+            if (!$nilai->karyawan) continue;
+    
+            $nilaiArray = [
+                'c1' => $nilai->c1,
+                'c2' => $nilai->c2,
+                'c3' => $nilai->c3,
+                'c4' => $nilai->c4,
+                'c5' => $nilai->c5,
+                'c6' => $nilai->c6,
+                'c7' => $nilai->c7,
+                'c8' => $nilai->c8,
+                'c9' => $nilai->c9,
+                'c10' => $nilai->c10,
+            ];
+
             $results[] = [
-                'id_karyawan' => $id,
-                'nama' => $karyawan['nama'],
-                'score' => round($score * 100, 2),
-                'nilai' => $karyawan['nilai']
+                'nama' => $nilai->karyawan->nama,
+                'divisi' => $nilai->karyawan->divisi->nama ?? 'N/A',
+                'outlet' => $nilai->karyawan->outlet->nama ?? 'N/A',
+                'nilai' => $nilaiArray,
+                'total_nilai' => array_sum($nilaiArray),
+                'mendapat_bonus' => array_sum($nilaiArray) >= 60
             ];
         }
 
-        return view('admin.admin-hasilspk', ['results' => $results]);
+        // Sort by total nilai (descending)
+        usort($results, function($a, $b) {
+            return $b['total_nilai'] - $a['total_nilai'];
+        });
+
+        return view('admin.admin-hasilspk', [
+            'results' => $results,
+            'departemenList' => $departemenList
+        ]);
     }
 
     private function normalizeMatrix($matrix)
     {
-        $normalized = [];
         $sumSquared = [
-            'quality' => 0,
-            'quantity' => 0,
-            'timelineness' => 0,
-            'effectiveness' => 0,
-            'independence' => 0
+            'c1' => 0,
+            'c2' => 0,
+            'c3' => 0,
+            'c4' => 0,
+            'c5' => 0,
+            'c6' => 0,
+            'c7' => 0,
+            'c8' => 0,
+            'c9' => 0,
+            'c10' => 0
         ];
 
         // Menghitung jumlah kuadrat
@@ -89,7 +81,6 @@ class SPKController extends Controller
             }
         }
 
-        // Normalisasi
         foreach ($matrix as $row) {
             $normalizedRow = ['id_karyawan' => $row['id_karyawan']];
             foreach ($row['nilai'] as $criteria => $value) {
@@ -106,19 +97,17 @@ class SPKController extends Controller
         $weighted = [];
         foreach ($normalizedMatrix as $row) {
             $weightedRow = ['id_karyawan' => $row['id_karyawan']];
-            foreach ($weights as $criteria => $weight) {
-                $weightedRow[$criteria] = $row[$criteria] * $weight;
+            foreach ($row['nilai'] as $criteria => $value) {
+                $weightedRow[$criteria] = $value * $weights[$criteria];
             }
             $weighted[] = $weightedRow;
         }
+
         return $weighted;
     }
 
     private function findIdealSolutions($weightedMatrix)
     {
-        $positive = [];
-        $negative = [];
-
         // Inisialisasi
         foreach (array_keys($weightedMatrix[0]) as $criteria) {
             if ($criteria !== 'id_karyawan') {

@@ -1,121 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin</title>
-  <!-- Favicons -->
-  <link href="/img/icon-sc.png" rel="icon">
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/admin-template/plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin | Hasil SPK</title>
+    <!-- Favicons -->
+    <link href="/img/icon-sc.png" rel="icon">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/admin-template/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  @include('admin.admin-navbar')
+    @include('admin.admin-navbar')
+    @include('admin.admin-sidebar')
 
-  @include('admin.admin-sidebar')
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Hasil SPK Bonus Karyawan</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Bordered Table</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Task</th>
-                      <th>Progress</th>
-                      <th style="width: 40px">Label</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1.</td>
-                      <td>Update software</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-danger">55%</span></td>
-                    </tr>
-                    <tr>
-                      <td>2.</td>
-                      <td>Clean database</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar bg-warning" style="width: 70%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-warning">70%</span></td>
-                    </tr>
-                    <tr>
-                      <td>3.</td>
-                      <td>Cron job running</td>
-                      <td>
-                        <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar bg-primary" style="width: 30%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-primary">30%</span></td>
-                    </tr>
-                    <tr>
-                      <td>4.</td>
-                      <td>Fix and squish bugs</td>
-                      <td>
-                        <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar bg-success" style="width: 90%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-success">90%</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div>
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Content Header -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Hasil SPK Bonus Karyawan</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Hasil SPK</li>
+                        </ol>
+                    </div>
+                </div>
             </div>
-            <!-- /.card -->
-        
-@include('admin.footer-admin')
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Peringkat Karyawan Berdasarkan Penilaian</h3>
+                            </div>
+                            <div class="card-body">
+                                <table id="results-table" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Peringkat</th>
+                                            <th>Nama Karyawan</th>
+                                            <th>Divisi</th>
+                                            <th>Outlet</th>
+                                            <th>Detail Nilai</th>
+                                            <th>Bonus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($results as $index => $result)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $result['nama'] }}</td>
+                                            <td>{{ $result['divisi'] }}</td>
+                                            <td>{{ $result['outlet'] }}</td>
+                                            <td>
+                                                C1: {{ $result['nilai']['c1'] }}%,
+                                                C2: {{ $result['nilai']['c2'] }}%,
+                                                C3: {{ $result['nilai']['c3'] }}%,
+                                                C4: {{ $result['nilai']['c4'] }}%,
+                                                C5: {{ $result['nilai']['c5'] }}%,
+                                                C6: {{ $result['nilai']['c6'] }}%,
+                                                C7: {{ $result['nilai']['c7'] }}%,
+                                                C8: {{ $result['nilai']['c8'] }}%,
+                                                C9: {{ $result['nilai']['c9'] }}%,
+                                                C10: {{ $result['nilai']['c10'] }}%
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $totalNilai = array_sum($result['nilai']);
+                                                    $isPotentialBonus = $totalNilai >= 60;
+                                                @endphp
+                                                <span class="badge {{ $isPotentialBonus ? 'bg-success' : 'bg-danger' }}">
+                                                    {{ $totalNilai }}% - 
+                                                    {{ $isPotentialBonus ? 'Mendapatkan Bonus' : 'Belum Mendapatkan Bonus' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar 
+                                                        @if($totalNilai >= 80)
+                                                            bg-success
+                                                        @elseif($totalNilai >= 60)
+                                                            bg-primary  
+                                                        @elseif($totalNilai >= 40)
+                                                            bg-warning
+                                                        @else
+                                                            bg-danger
+                                                        @endif"
+                                                        style="width: {{ $totalNilai }}%">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    @include('admin.footer-admin')
+</div>
+
+<!-- Scripts -->
+<script src="/admin-template/plugins/jquery/jquery.min.js"></script>
+<script src="/admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/admin-template/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/admin-template/dist/js/adminlte.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#results-table').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+    });
+});
+</script>
+
 </body>
 </html>

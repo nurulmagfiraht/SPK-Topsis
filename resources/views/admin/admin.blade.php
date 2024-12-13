@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="/admin-template/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="/admin-template/plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

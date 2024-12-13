@@ -31,9 +31,20 @@ class PenilaianKaryawanModel extends Model
     }
 
     // app/Models/Absensi.php
-public function karyawan()
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class, 'karyawan_id', 'id');
+    }
+
+public function divisi()
 {
-    return $this->belongsTo(Karyawan::class, 'data_karyawan_id');
+    return $this->belongsTo(Divisi::class, 'divisi_id');
 }
+
+public function outlet()
+{
+    return $this->belongsTo(Outlet::class, 'outlet_id');
+}
+
 
 }

@@ -32,10 +32,11 @@ class Karyawan extends Model
         return $this->belongsTo(Outlet::class, 'outlet_id');
     }
 
-    public function penilaian()
-    {
-        return $this->hasOne(PenilaianKaryawanModel::class, 'karyawan_id');
-    }
+     // Perbaiki relasi ini
+     public function penilaian()
+     {
+         return $this->hasOne(PenilaianKaryawanModel::class, 'karyawan_id', 'id');
+     }
 
     public function absensi()
     {
