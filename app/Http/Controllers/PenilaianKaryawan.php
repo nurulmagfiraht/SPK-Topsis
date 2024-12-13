@@ -2,98 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absensi;
 use App\Models\Karyawan;
-use Illuminate\Http\Request;
 use App\Models\Departemen;
 use App\Models\Outlet;
 use App\Models\Divisi;
-use App\Models\PenilaianKaryawanModel;
+use App\Models\Absensi;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\PenilaianKaryawanModel;
 
 class PenilaianKaryawan extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index($id)
-    {
-        $karyawan = Absensi::find($id);
-        $departemenList = Departemen::all();
-        $outletList = Outlet::all();
-        $divisi = $karyawan->divisi;
-        $kpiList = $divisi->kpi;
+{
+    $karyawan = Karyawan::with(['divisi', 'absensi', 'penilaian'])->find($id);
 
-        return view ("admin.edit-penilaiankaryawan", compact("karyawan", "departemenList", "outletList", "divisi", "kpiList"));
-
-        
+    if (!$karyawan) {
+        return redirect()->route('admin-penilaian.index')->withErrors('Karyawan tidak ditemukan.');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    // Get the latest attendance record for this employee
+    $absensi = Absensi::where('data_karyawan_id', $id)
+                     ->orderBy('created_at', 'desc')
+                     ->first();
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    $departemenList = Departemen::all();
+    $outletList = Outlet::all();
+    $divisi = $karyawan->divisi;
+    $kpiList = $divisi ? $divisi->kpi : [];
+
+    return view("admin.edit-penilaiankaryawan", compact(
+        "karyawan",
+        "departemenList", 
+        "outletList", 
+        "divisi", 
+        "kpiList",
+        "absensi"
+    ));
+}
+
+
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'karyawan_id' => 'required|exists:data_karyawan,id',
-            'c1' => 'required|integer|min:0',
-            'c2' => 'required|integer|min:0',
-            'c3' => 'required|integer|min:0',
-            'c4' => 'required|integer|min:0',
-            'c5' => 'required|integer|min:0',
-            'c6' => 'required|integer|min:0',
-            'c7' => 'required|integer|min:0',
-            'c8' => 'required|integer|min:0',
-            'c9' => 'required|integer|min:0',
-            'c10' => 'required|integer|min:0',
-        ]);
+{
+    $validatedData = $request->validate([
+        'karyawan_id' => 'required|exists:data_karyawan,id',
+        'c1' => 'required|integer|min:0',
+        'c2' => 'required|integer|min:0',
+        'c3' => 'required|integer|min:0',
+        'c4' => 'required|integer|min:0',
+        'c5' => 'required|integer|min:0',
+        'c6' => 'required|integer|min:0',
+        'c7' => 'required|integer|min:0',
+        'c8' => 'required|integer|min:0',
+        'c9' => 'required|integer|min:0',
+        'c10' => 'required|integer|min:0',
+    ]);
 
-        try {
+    try {
+        // Check if assessment already exists
+        $existing = PenilaianKaryawanModel::where('karyawan_id', $validatedData['karyawan_id'])->first();
+        
+        if ($existing) {
+            $existing->update($validatedData);
+            $message = 'Penilaian karyawan berhasil diperbarui.';
+        } else {
             PenilaianKaryawanModel::create($validatedData);
-            return redirect()->route('admin-penilaian.index')->with('success', 'Penilaian karyawan berhasil disimpan.');
-        } catch (\Exception $e) {
-            Log::error('Error saving Penilaian Karyawan: ' . $e->getMessage());
-            return redirect()->back()->withErrors('Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
+            $message = 'Penilaian karyawan berhasil disimpan.';
         }
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('admin-penilaian.index')
+                       ->with('success', $message);
+    } catch (\Exception $e) {
+        \Log::error('Error saving Penilaian Karyawan: ' . $e->getMessage());
+        return redirect()->back()
+                       ->withInput()
+                       ->withErrors('Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
     }
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

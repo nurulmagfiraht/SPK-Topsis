@@ -24,4 +24,16 @@ class PenilaianKaryawanModel extends Model
         'c9',
         'c10',
     ];
-} 
+
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class, 'data_karyawan_id');
+    }
+
+    // app/Models/Absensi.php
+public function karyawan()
+{
+    return $this->belongsTo(Karyawan::class, 'data_karyawan_id');
+}
+
+}

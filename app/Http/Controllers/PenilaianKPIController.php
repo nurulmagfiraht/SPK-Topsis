@@ -11,20 +11,19 @@ class PenilaianKPIController extends Controller
 {
     public function index()
 {
-    // Ambil data karyawan yang memiliki absensi
-    $dataKaryawan = Absensi::with(['dataKaryawan.divisi', 'dataKaryawan.outlet'])
-        ->whereHas('dataKaryawan', function($query) {
-            $query->whereNotNull('outlet_id');
-        })
+    // Ambil data absensi dan join dengan data karyawan untuk mendapatkan informasi divisi dan outlet
+    $dataKaryawan = Absensi::join('data_karyawan', 'absensi.data_karyawan_id', '=', 'data_karyawan.id')
+        ->join('divisi', 'data_karyawan.divisi_id', '=', 'divisi.id')
+        ->join('outlet', 'data_karyawan.outlet_id', '=', 'outlet.id')
+        ->select('absensi.*', 'data_karyawan.nama as nama_karyawan', 'divisi.nama as nama_divisi', 'outlet.nama as nama_outlet')
         ->whereNotNull('data_karyawan_id')
-        ->paginate(15); // Panggil paginate di sini, bukan setelah get()
+        ->paginate(15);
 
     $departemenList = Departemen::paginate(15);
     $outletList = Outlet::all();
 
     return view('admin.admin-penilaian', compact('dataKaryawan', 'departemenList', 'outletList'));
 }
-
     /**
      * Show the form for creating a new resource.
      */

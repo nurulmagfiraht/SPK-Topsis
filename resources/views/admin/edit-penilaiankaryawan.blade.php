@@ -87,17 +87,28 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="kehadiran">Kehadiran</label>
-                                            <input type="number" class="form-control" id="kehadiran" placeholder="Kehadiran" value="{{ $karyawan->jumlah_hadir }}" readonly>
+                                            <input type="number" class="form-control" id="kehadiran" placeholder="Kehadiran" value="{{ $absensi ? $absensi->jumlah_hadir : 0 }}" readonly>
                                         </div>
                                         @foreach ($kpiList as $index => $kpi)
                                             <div class="form-group">
                                                 <label for="kriteria{{ $kpi->id }}">C{{ $index + 1 }}: {{ $kpi->kriteria }}</label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="kriteria{{ $kpi->id }}" name="c{{ $index + 1 }}" placeholder="{{ $kpi->kriteria }}" max="{{ $kpi->bobot }}" min="0">
+                                                    <input type="number" 
+                                                           class="form-control" 
+                                                           id="kriteria{{ $kpi->id }}" 
+                                                           name="c{{ $index + 1 }}"
+                                                           value="{{ old('c'.($index + 1)) }}" 
+                                                           placeholder="{{ $kpi->kriteria }}" 
+                                                           max="{{ $kpi->bobot }}" 
+                                                           min="0"
+                                                           required>
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">%</span>
                                                     </div>
                                                 </div>
+                                                @error('c'.($index + 1))
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         @endforeach
                                         <div class="card-footer">
@@ -122,6 +133,25 @@
     <script src="/admin-template/plugins/jquery/jquery.min.js"></script>
     <script src="/admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/admin-template/dist/js/adminlte.min.js"></script>
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}",
+                icon: "success"
+            });
+        </script>
+    @endif
+
+    @if($errors->any())
+        <script>
+            Swal.fire({
+                title: "Error!",
+                text: "{{ $errors->first() }}",
+                icon: "error"
+            });
+        </script>
+    @endif
 </body>
 
 </html>
