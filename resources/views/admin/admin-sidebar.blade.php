@@ -157,22 +157,31 @@
                             </p>
                         </a>
                     </li>
-
-                    </li>
+                    <div class="sidebar-footer">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="nav-link btn btn-link" style="color: red; transition: color 0.3s;">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>Log Out</p>
+                </button>
+            </form>
+        </div>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar -->
     </aside>
-
-
 
     <!-- Skrip lainnya -->
     <script src="/admin-template/plugins/jquery/jquery.min.js"></script>
     <script src="/admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/admin-template/dist/js/adminlte.min.js"></script>
     <script src="/admin-template/dist/js/demo.js"></script>
+    <script>
+        document.querySelector('.sidebar-footer button').addEventListener('click', function() {
+            this.style.color = 'darkred';
+        });
+    </script>
 </body>
 
 </html>
