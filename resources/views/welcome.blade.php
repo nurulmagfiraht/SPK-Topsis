@@ -49,12 +49,12 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Product</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#hero" class="active">Beranda</a></li>
+          <li><a href="#about">Tentang Kami</a></li>
+          <li><a href="#services">Layanan</a></li>
+          <li><a href="#portfolio">Galeri Saoenk Cobek</a></li>
+          <li><a href="#team">Tim Kami</a></li>
+          <li><a href="#pricing">Daftar Harga</a></li>
           <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
@@ -72,7 +72,7 @@
               <li><a href="#">Dropdown 4</a></li>
             </ul>
           </li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact">Kontak</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -169,7 +169,7 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>About Us</h2>
+        <h2>Tentang Kami</h2>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -210,9 +210,9 @@
           <div class="col-lg-7 d-flex flex-column justify-content-center order-2 order-lg-1">
 
             <div class="content px-xl-5" data-aos="fade-up" data-aos-delay="100">
-              <h3><span>Eum ipsam laborum deleniti </span><strong>velit pariatur architecto aut nihil</strong></h3>
+              <h3><span>Mengapa harus </span><strong>Saoenk Cobek ?</strong></h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                Di balik setiap sajian di Saoenk Cobek, ada semangat untuk menghadirkan pengalaman makan yang hangat, nikmat, dan berkesan. Kami tidak hanya menyajikan makanan, tetapi juga menciptakan suasana yang cocok untuk berkumpul bersama keluarga, teman, atau rekan kerja. Dengan komitmen terhadap kualitas rasa dan pelayanan terbaik, Saoenk Cobek hadir sebagai pilihan tepat untuk setiap momen spesial Anda. Jadi, mengapa harus Saoenk Cobek?
               </p>
             </div>
 
@@ -220,25 +220,25 @@
 
               <div class="faq-item faq-active">
 
-                <h3><span>01</span> Non consectetur a erat nam at lectus urna duis?</h3>
+                <h3><span>01</span> Cita Rasa Autentik & Khas Nusantara</h3>
                 <div class="faq-content">
-                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
+                  <p>Kami menyajikan menu khas Indonesia dengan cita rasa otentik yang diracik dari bumbu pilihan, menghadirkan pengalaman kuliner yang tak terlupakan.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3><span>02</span> Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?</h3>
+                <h3><span>02</span> Cabang Strategis & Fasilitas Lengkap</h3>
                 <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                  <p>Dengan 4 cabang yaitu di Bone, Perintis, Samata, dan Sudiang, kami hadir lebih dekat dengan Anda. Nikmati layanan makan di tempat, reservasi tim, prasmanan, hingga ruang VIP eksklusif di cabang Perintis.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3><span>03</span> Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
+                <h3><span>03</span> Layanan Fleksibel untuk Beragam Acara</h3>
                 <div class="faq-content">
-                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
+                  <p>Saoenk Cobek siap melayani kebutuhan acara Anda, mulai dari catering, aqiqah, lamaran, wedding intimate, hingga mendukung bazar mahasiswa – semua dengan pelayanan ramah dan profesional.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
@@ -248,7 +248,7 @@
           </div>
 
           <div class="col-lg-5 order-1 order-lg-2 why-us-img">
-            <img src="/img/why-us.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="100">
+            <img src="/img/Saoenk.png" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="100">
           </div>
         </div>
 
@@ -256,113 +256,56 @@
 
     </section><!-- /Why Us Section -->
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row">
-
-          <div class="col-lg-6 d-flex align-items-center">
-            <img src="/img/skills.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-6 pt-4 pt-lg-0 content">
-
-            <h3>Voluptatem dignissimos provident quasi corporis voluptas</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-
-            <div class="skills-content skills-animation">
-
-              <div class="progress">
-                <span class="skill"><span>HTML</span> <i class="val">100%</i></span>
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div><!-- End Skills Item -->
-
-              <div class="progress">
-                <span class="skill"><span>CSS</span> <i class="val">90%</i></span>
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div><!-- End Skills Item -->
-
-              <div class="progress">
-                <span class="skill"><span>JavaScript</span> <i class="val">75%</i></span>
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div><!-- End Skills Item -->
-
-              <div class="progress">
-                <span class="skill"><span>Photoshop</span> <i class="val">55%</i></span>
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div><!-- End Skills Item -->
-
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /Skills Section -->
 
     <!-- Services Section -->
-    <section id="services" class="services section light-background">
+    <section id="services" class="services section bg-white">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        
+        <h2>Layanan Kami</h2>
+        <p>Saoenk Cobek memiliki berbagai macam layanan, diantaranya :</p>
       </div><!-- End Section Title -->
 
       <div class="container">
-
-        <div class="row gy-4">
-
+        <div class="row gy-4 justify-content-center text-center">
+    
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-activity icon"></i></div>
-              <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-bounding-box-circles icon"></i></div>
-              <h4><a href="" class="stretched-link">Sed ut perspici</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-calendar4-week icon"></i></div>
-              <h4><a href="" class="stretched-link">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-broadcast icon"></i></div>
-              <h4><a href="" class="stretched-link">Nemo Enim</a></h4>
-              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-            </div>
-          </div><!-- End Service Item -->
-
+              <div class="icon"><i class="bi bi-egg-fried icon"></i></div>
+              <h4><a href="#" class="stretched-link">Makan di Tempat</a></h4>
+              <p>Rasakan langsung nikmatnya hidangan kami dalam suasana nyaman dan bersih.</p>
         </div>
+      </div><!-- End Service Item -->
 
-      </div>
+      <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-item position-relative">
+          <div class="icon"><i class="bi bi-bag-check icon"></i></div>
+          <h4><a href="#" class="stretched-link">Take Away</a></h4>
+          <p>Nikmati menu favorit Anda di mana saja dengan layanan bawa pulang yang cepat dan praktis.</p>
+        </div>
+      </div><!-- End Service Item -->
 
-    </section><!-- /Services Section -->
+      <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-item position-relative">
+          <div class="icon"><i class="bi bi-truck icon"></i></div>
+          <h4><a href="#" class="stretched-link">Delivery</a></h4>
+          <p>Pesan dengan mudah melalui aplikasi mitra kami seperti GoFood, GrabFood, dan ShopeeFod dan  diantar langsung ke lokasi Anda.</p>
+        </div>
+      </div><!-- End Service Item -->
+
+      <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
+        <div class="service-item position-relative">
+          <div class="icon"><i class="bi bi-calendar-event icon"></i></div>
+          <h4><a href="#" class="stretched-link">Reservasi & Event</a></h4>
+          <p>Tersedia layanan pemesanan tempat untuk acara keluarga, meeting, gathering, dan sebagainya.</p>
+        </div>
+      </div><!-- End Service Item -->
+
+    </div>
+  </div>
+
+</section><!-- /Services Section -->
 
     <!-- Call To Action Section -->
     <section id="call-to-action" class="call-to-action section dark-background">
@@ -373,11 +316,11 @@
 
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
           <div class="col-xl-9 text-center text-xl-start">
-            <h3>Call To Action</h3>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h3>Hubungi Kami Sekarang</h3>
+            <p>Siap memesan layanan atau ingin tahu lebih lanjut? Tim kami siap membantu Anda.</p>
           </div>
           <div class="col-xl-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">Call To Action</a>
+            <a class="cta-btn align-middle" href="#contact">Call To Action</a>
           </div>
         </div>
 
@@ -390,8 +333,8 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <h2>Galeri Saoenk Cobek</h2>
+        <p>Kumpulan momen spesial dan sajian lezat yang tersaji di berbagai cabang Saoenk Cobek.</p>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -400,19 +343,19 @@
 
           <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
             <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-product">Card</li>
-            <li data-filter=".filter-branding">Web</li>
+            <li data-filter=".filter-app">Moment</li>
+            <li data-filter=".filter-product">Foody</li>
+            <li data-filter=".filter-branding">Event</li>
           </ul><!-- End Portfolio Filters -->
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <img src="/img/masonry-portfolio/masonry-portfolio-1.jpg" class="img-fluid" alt="">
+              <img src="/img/masonry-portfolio/moment-1.png" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="/img/masonry-portfolio/masonry-portfolio-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <h4>Moment 1</h4>
+                <p>Momen hangat bersama keluarga dan sahabat di Saoenk Cobek, menikmati suasana nyaman dengan saung terapung yang tenang dan asri.</p>
+                <a href="/img/masonry-portfolio/moment-1.png" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
@@ -438,11 +381,11 @@
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <img src="/img/masonry-portfolio/masonry-portfolio-4.jpg" class="img-fluid" alt="">
+              <img src="/img/masonry-portfolio/moment-4.png" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="/img/masonry-portfolio/masonry-portfolio-4.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <h4>Moment 2</h4>
+                <p>Kebersamaan tim dalam suasana santai dan hangat di Saoenk Cobek, menikmati hidangan khas Nusantara dengan nuansa tradisional.</p>
+                <a href="/img/masonry-portfolio/moment-4.png" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
@@ -468,17 +411,17 @@
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <img src="/img/masonry-portfolio/masonry-portfolio-7.jpg" class="img-fluid" alt="">
+              <img src="/img/masonry-portfolio/moment-7.png" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="/img/masonry-portfolio/masonry-portfolio-7.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <h4>Moment 3</h4>
+                <p>Kebersamaan yang hangat saat makan malam bersama teman di suasana saung yang nyaman dan penuh keakraban</p>
+                <a href="/img/masonry-portfolio/moment-7.png" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="/img/masonry-portfolio/masonry-portfolio-8.jpg" class="img-fluid" alt="">
+              <img src="/img/masonry-portfolio/masonry-portfolio-8.jpdg" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>Product 3</h4>
                 <p>Lorem ipsum, dolor sit</p>
@@ -591,70 +534,6 @@
       </div>
 
     </section><!-- /Team Section -->
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Pricing</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="pricing-item">
-              <h3>Free Plan</h3>
-              <h4><sup>$</sup>0<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-              </ul>
-              <a href="#" class="buy-btn">Buy Now</a>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="pricing-item featured">
-              <h3>Business Plan</h3>
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-              </ul>
-              <a href="#" class="buy-btn">Buy Now</a>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="pricing-item">
-              <h3>Developer Plan</h3>
-              <h4><sup>$</sup>49<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-              </ul>
-              <a href="#" class="buy-btn">Buy Now</a>
-            </div>
-          </div><!-- End Pricing Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Pricing Section -->
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
@@ -848,88 +727,85 @@
     <!-- Contact Section -->
     <section id="contact" class="contact section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Kontak</h2>
+    <p>Hubungi kami di lokasi terdekat Anda</p>
+  </div><!-- End Section Title -->
 
-        <div class="row gy-4">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4 justify-content-center">
 
-          <div class="col-lg-5">
+      <div class="col-lg-10">
 
-            <div class="info-wrap">
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                <div>
-                  <h3>Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
-                </div>
-              </div><!-- End Info Item -->
+        <div class="info-wrap">
 
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                <i class="bi bi-telephone flex-shrink-0"></i>
-                <div>
-                  <h3>Call Us</h3>
-                  <p>+1 5589 55488 55</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                <i class="bi bi-envelope flex-shrink-0"></i>
-                <div>
-                  <h3>Email Us</h3>
-                  <p>info@example.com</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <!-- Cabang 1 -->
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div>
+              <h3>Cabang Perintis</h3>
+              <p>Jl. Perintis Kemerdekaan No.KM 9, Tamalanrea Indah, Kec. Tamalanrea, Kota Makassar, Sulawesi Selatan 90245</p>
             </div>
           </div>
 
-          <div class="col-lg-7">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div class="row gy-4">
+          <!-- Cabang 2 -->
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="250">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div>
+              <h3>Cabang Samata</h3>
+              <p>Jl. Tun Abdul Razak No.2, Romangpolong, Kec. Somba Opu, Kabupaten Gowa, Sulawesi Selatan 90233</p>
+            </div>
+          </div>
 
-                <div class="col-md-6">
-                  <label for="name-field" class="pb-2">Your Name</label>
-                  <input type="text" name="name" id="name-field" class="form-control" required="">
-                </div>
+          <!-- Cabang 3 -->
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div>
+              <h3>Cabang Sudiang</h3>
+              <p>Belakang Kantor POS, Jl. Dg. Ramang, Sudiang Raya, Kec. Biringkanaya, Kota Makassar, Sulawesi Selatan 90242</p>
+            </div>
+          </div>
 
-                <div class="col-md-6">
-                  <label for="email-field" class="pb-2">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email-field" required="">
-                </div>
+          <!-- Cabang 4 -->
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="350">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div>
+              <h3>Cabang Bone</h3>
+              <p>Depan Kantor Dinas Sosial, Jl. Andalas, Manurunge, Kec. Tanete Riattang, Kabupaten Bone, Sulawesi Selatan 92712</p>
+            </div>
+          </div>
 
-                <div class="col-md-12">
-                  <label for="subject-field" class="pb-2">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject-field" required="">
-                </div>
+          <!-- Kontak Umum -->
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+            <i class="bi bi-telephone flex-shrink-0"></i>
+            <div>
+              <h3>Hubungi Kami</h3>
+              <p>+62 811-4113-343</p>
+            </div>
+          </div>
 
-                <div class="col-md-12">
-                  <label for="message-field" class="pb-2">Message</label>
-                  <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
-                </div>
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="450">
+            <i class="bi bi-envelope flex-shrink-0"></i>
+            <div>
+              <h3>Email Kami</h3>
+              <p>hrd@saoenkcobe.com</p>
+            </div>
+          </div>
 
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
+          <!-- Google Maps -->
+          <div data-aos="fade-up" data-aos-delay="500">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.766677391311!2d119.48163567479479!3d-5.141223994836004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee37f77734ce1%3A0x42544881ce6b3bcf!2sSaoenk%20Cobek%20Perintis!5e0!3m2!1sid!2sid!4v1746017273408!5m2!1sid!2sid"
+              frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
 
-                  <button type="submit">Send Message</button>
-                </div>
+        </div><!-- End Info Wrap -->
+      </div><!-- End col -->
+    </div><!-- End row -->
+  </div><!-- End container -->
 
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Contact Section -->
+</section>
 
   </main>
 
@@ -959,9 +835,9 @@
             <span class="sitename">Saoenk Cobek</span>
           </a>
           <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+            <p>Jl. Perintis Kemerdekaan No.KM 9, Tamalanrea Indah, Kec. Tamalanrea</p>
+            <p>Kota Makassar, Sulawesi Selatan 90245</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+62 811-4113-343</span></p>
             <p><strong>Email:</strong> <span>info@example.com</span></p>
           </div>
         </div>

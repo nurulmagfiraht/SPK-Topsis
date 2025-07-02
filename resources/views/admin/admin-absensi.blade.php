@@ -47,6 +47,13 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
+                <form action="{{ route('admin.absensi.index') }}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  <div class="card-tools float-right">
+                    <input type="file"  accept=".csv, .xls, .xlsx" name="absensi_file">
+                    <input type="submit" value="Import">
+                  </div>
+                </form>
                 <form action="{{ route('admin.absensi.index') }}" method="GET">
                   <div class="row">
                     <div class="col-md-4">
