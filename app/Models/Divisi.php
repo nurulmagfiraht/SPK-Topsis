@@ -10,7 +10,7 @@ class Divisi extends Model
     use HasFactory;
 
     protected $table = 'divisi';
-    protected $fillable = ['nama'];
+    protected $fillable = ['nama', 'departemen_id'];
 
     public function departemen()
     {

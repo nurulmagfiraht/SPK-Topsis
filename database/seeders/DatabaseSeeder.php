@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             OutletTableSeeder::class,
             DataKaryawanTableSeeder::class,
             AbsensiTableSeeder::class,
+            AdminSeeder::class,
             // UsersTableSeeder::class,
         ]);
     }

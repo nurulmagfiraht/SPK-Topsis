@@ -132,6 +132,16 @@
           <i class="fas fa-th-large"></i>
         </a>
       </li>
+      <li class="nav-item">
+        <form action="/logout" method="POST" style="margin: 0;">
+            @csrf
+            <button type="submit" class="nav-link btn w-100 text-start" style="background: none; border: none; padding-left: 0;">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
+                <p class="d-inline">Logout</p>
+            </button>
+        </form>
+    </li>
+
     </ul>
   </nav>
   <!-- /.navbar -->

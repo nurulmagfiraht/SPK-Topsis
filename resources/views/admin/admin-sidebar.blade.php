@@ -48,7 +48,7 @@
                         alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                 </div>
             </div>
 
@@ -71,6 +71,9 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+               @if (Auth::user()->role == "admin" || Auth::user()->role == "supervisor")
+                   
                     <li class="nav-item">
                         <a href="/admin" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -86,6 +89,7 @@
               </p>
             </a>
           </li> --}}
+
                     <li class="nav-item">
                         <a href="/admin-absensi" class="nav-link">
                             <i class="nav-icon fas fa-clipboard-list"></i>
@@ -124,6 +128,7 @@
                             @endforeach
                         </ul>
                     </li>
+               @endif
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -134,20 +139,31 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="/admin-penilaian" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Penilaian KPI Karyawan</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/admin-hasilspk" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>SPK Bonus Karyawan</p>
-                                </a>
-                            </li>
+                            @if (Auth::user()->role === "kp_divisi" || Auth::user()->role === "admin" || Auth::user()->role === "supervisor")
+                                
+                                <li class="nav-item">
+                                    <a href="/admin-penilaian" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Penilaian KPI Karyawan</p>
+                                    </a>
+                                </li>
+
+                            @endif
+
+                            @if (Auth::user()->role === "admin_accounting" || Auth::user()->role === "admin" || Auth::user()->role === "supervisor")
+
+                                <li class="nav-item">
+                                    <a href="/admin-hasilspk" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>SPK Bonus Karyawan</p>
+                                    </a>
+                                </li>
+
+                            @endif
+
                         </ul>
                     </li>
+                    @if (Auth::user()->role == "admin" || Auth::user()->role == "supervisor")
                     <li class="nav-item">
                         <a href="/admin-datauser" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>
@@ -156,6 +172,19 @@
                             </p>
                         </a>
                     </li>
+                    @endif
+
+                    {{-- <li class="nav-item">
+                        <form action="/logout" class="text-start" method="POST" style="margin: 0;">
+                            @csrf
+                            <button type="submit" class="nav-link btn w-100 text-start" style="background: none; border: none; padding-left: 0;">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p class="d-inline">Logout</p>
+                            </button>
+                        </form>
+                    </li> --}}
+
+
 
                     </li>
                 </ul>

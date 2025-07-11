@@ -10,6 +10,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
   <link rel="stylesheet" href="/admin-template/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/admin-template/dist/css/adminlte.min.css">
@@ -46,32 +49,79 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Bordered Table</h3>
+              <div class="d-flex justify-content-between align-items-center w-100">
+                <h3 class="card-title mb-0">Daftar User</h3>
+                <a href="/register" class="btn btn-primary btn-sm ms-auto">
+                  <i class="bi bi-person-plus-fill me-1"></i> Tambah Akun
+                </a>
               </div>
+            </div>
+
+
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">No</th>
-                      <th>Nama</th>
-                      <th>Email</th>
-                      <th>Role</th>
-                    </tr>
+                <table class="table table-bordered table-striped">
+                  <thead class="table-dark">
+                      <tr>
+                          <th style="width: 50px">No</th>
+                          <th>Nama</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          {{-- <th style="width: 180px">Aksi</th> --}}
+                      </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1.</td>
-                      <td>Update software</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-danger">55%</span></td>
-                    </tr>
+                      @foreach ($user as $index => $user)
+                      <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            @if (Auth::user()->role == "admin" || Auth::user()->role == "supervisor")
+                              <form action="/update-role/{{ $user->id }}" method="POST">
+                                  @csrf
+                                  @method('PUT')
+                                  
+                                  <td>
+                                      <select name="role" class="form-select form-select-sm" style="height: 30px; width:150px;">
+                                        
+                                        <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
+                                        
+                                        <option value="supervisor" {{ $user->role === 'supervisor' ? 'selected' : '' }}>Supervisor</option>
+
+                                        @if ($user->role === 'user' || $user->role === 'kp_divisi' || $user->role === 'admin_accounting')
+                                            
+                                          <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
+                                          
+                                          <option value="kp_divisi" {{ $user->role === 'kp_divisi' ? 'selected' : '' }}>Kapten Divisi</option>
+                                          
+                                          <option value="admin_accounting" {{ $user->role === 'admin_accounting' ? 'selected' : '' }}>Admin Accounting</option>
+
+                                        @endif
+
+                                      </select>
+                                      {{-- <td class="d-flex gap-1"> --}}
+                                        <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-floppy me-1"></i></button>
+                                      </td>
+                              </form>
+
+                            @else
+                              <td>
+                                @if ($user->role == "kp_divisi")
+                                    Kepala Divisi
+                                @elseif ($user->role == "admin_accounting")
+                                    Admin Accounting
+                                @else
+                                    {{ $user->role }}
+                                @endif  
+                              </td>
+                            @endif
+
+
+                          </tr>
+                      @endforeach
                   </tbody>
-                </table>
+              </table>
+
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">

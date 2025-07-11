@@ -41,11 +41,13 @@ class AbsensiController extends Controller
         $request->validate([
             'absensi_file' => 'required|file|mimes:csv,xls,xlsx|max:2048',
         ]);
+        // dd($request->all());
 
         try {
             Excel::import(new KaryawanImport, $request->file('absensi_file'));
             return redirect()->back()->with('success', 'Data absensi berhasil diimpor.');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error', 'Terjadi kesalahan saat impor: ' . $e->getMessage());
         }
     }
