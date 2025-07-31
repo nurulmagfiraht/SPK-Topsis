@@ -117,7 +117,8 @@
                                     <ul class="nav nav-treeview">
                                         @foreach ($departemen->divisi as $divisi)
                                             <li class="nav-item">
-                                                <a href="{{ route('admin-showdivisi.show', ['departemen' => $departemen->id, 'divisi' => $divisi->id]) }}" class="nav-link">
+                                                <a href="{{ route('admin-showdivisi.show', ['departemen' => $departemen->id, 'divisi' => $divisi->id]) }}" 
+                                                    class="nav-link {{ request()->is('admin-departemen/' . $departemen->id . '/' . $divisi->id) ? 'active' : '' }}">
                                                     <i class="far fa-dot-circle nav-icon"></i>
                                                     <p>{{ $divisi->nama }}</p>
                                                 </a>

@@ -26,7 +26,7 @@ use App\Http\Controllers\PenilaianKPIController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 

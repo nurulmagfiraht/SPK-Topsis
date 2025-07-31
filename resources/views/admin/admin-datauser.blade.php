@@ -25,6 +25,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -135,6 +136,10 @@
               </div>
             </div>
             <!-- /.card -->
+            <div class="footer-admin fixed-bottom">
+  <!-- Footer content -->
+</div>
+
         
 @include('admin.footer-admin')
 </body>

@@ -47,8 +47,8 @@ class SPKController extends Controller
                 'c6' => $nilai->c6,
                 'c7' => $nilai->c7,
                 'c8' => $nilai->c8,
-                'c9' => $nilai->c9,
-                'c10' => $nilai->c10,
+                // 'c9' => $nilai->c9,
+                // 'c10' => $nilai->c10,
             ];
 
             // Tambahkan data ke matriks utama

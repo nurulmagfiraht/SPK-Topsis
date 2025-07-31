@@ -6,7 +6,6 @@
   <title>Admin</title>
   <!-- Favicons -->
   <link href="/img/icon-sc.png" rel="icon">
-
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -32,7 +31,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
+              <li class="breadcrumb-item active">Penilaian Kinerja Karyawan</li>
             </ol>
           </div>
         </div>
@@ -50,7 +49,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
+                <table id="tabel-karyawan" class="table table-bordered">
                   <thead>
                     <tr>
                       <th>ID Karyawan</th>
@@ -81,6 +80,7 @@
                   </tbody>
                 </table>
                 <!-- Pagination -->
+                
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div>
                         @if ($dataKaryawan->onFirstPage())
@@ -109,7 +109,10 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-        
+
+
+
+
 @include('admin.footer-admin')
 </body>
 </html>

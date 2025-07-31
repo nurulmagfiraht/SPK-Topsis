@@ -10,7 +10,7 @@
 
   <!-- Favicons -->
   <link href="/img/icon-sc.png" rel="icon">
-  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/img/icon-sc.png" rel="icon-sc">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">

@@ -54,8 +54,8 @@ class PenilaianKaryawan extends Controller
         'c6' => 'required|integer|min:0',
         'c7' => 'required|integer|min:0',
         'c8' => 'required|integer|min:0',
-        'c9' => 'required|integer|min:0',
-        'c10' => 'required|integer|min:0',
+        // 'c9' => 'required|integer|min:0',
+        // 'c10' => 'required|integer|min:0',
     ]);
 
     try {
