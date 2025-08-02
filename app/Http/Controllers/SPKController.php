@@ -12,103 +12,112 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class SPKController extends Controller
 {
     // Fungsi utama untuk menampilkan hasil perhitungan TOPSIS
-    public function index()
-    {
-        // Ambil data penilaian karyawan beserta relasi divisi dan outlet
-        $penilaianKaryawan = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet'])->get();
-        // Ambil daftar departemen untuk ditampilkan di halaman
-        $departemenList = Departemen::all();
+public function index()
+{
+    // Ambil data penilaian karyawan beserta relasi divisi dan outlet
+    $penilaianKaryawan = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet'])->get();
+    // Ambil daftar departemen untuk ditampilkan di halaman
+    $departemenList = Departemen::all();
 
-        // Jika tidak ada data penilaian karyawan, kembalikan halaman kosong
-        if ($penilaianKaryawan->isEmpty()) {
-            return view('admin.admin-hasilspk', [
-                'results' => [],
-                'departemenList' => $departemenList
-            ]);
-        }
-
-        // Bobot untuk kriteria
-        $weights = [
-            'c1' => 0.30,
-            'c2' => 0.13,
-            'c3' => 0.12,
-            'c4' => 0.10,
-            'c5' => 0.10,
-            'c6' => 0.10,
-            'c7' => 0.05,
-            'c8' => 0.10
-        ];
-
-        // Persiapkan matriks penilaian karyawan
-        $matrix = [];
-        foreach ($penilaianKaryawan as $nilai) {
-            if (!$nilai->karyawan) continue;
-
-            // Susun data nilai karyawan
-            $nilaiArray = [
-                'c1' => $nilai->c1,
-                'c2' => $nilai->c2,
-                'c3' => $nilai->c3,
-                'c4' => $nilai->c4,
-                'c5' => $nilai->c5,
-                'c6' => $nilai->c6,
-                'c7' => $nilai->c7,
-                'c8' => $nilai->c8,
-            ];
-
-            // Tambahkan data ke matriks utama
-            $matrix[] = [
-                'id_karyawan' => $nilai->karyawan->id,
-                'nama' => $nilai->karyawan->nama,
-                'divisi' => $nilai->karyawan->divisi->nama ?? 'N/A',
-                'outlet' => $nilai->karyawan->outlet->nama ?? 'N/A',
-                'nilai' => $nilaiArray
-            ];
-        }
-
-        // Langkah-langkah metode TOPSIS
-        $normalizedMatrix = $this->normalizeMatrix($matrix); // Normalisasi matriks
-        $weightedMatrix = $this->weightedMatrix($normalizedMatrix, $weights); // Matriks berbobot
-        $idealSolutions = $this->findIdealSolutions($weightedMatrix); // Solusi ideal positif dan negatif
-        $distances = $this->calculateDistances($weightedMatrix, $idealSolutions); // Hitung jarak ke solusi ideal
-        $preferences = $this->calculatePreferences($distances); // Hitung skor preferensi
-
-        // Susun hasil akhir untuk ditampilkan
-        $results = [];
-        foreach ($matrix as $data) {
-            $totalNilai = array_sum($data['nilai']); // Total nilai tanpa bobot
-            $topsisScore = isset($preferences[$data['id_karyawan']]) ? $preferences[$data['id_karyawan']] : 0;
-
-            $results[] = [
-                'id_karyawan' => $data['id_karyawan'],
-                'nama' => $data['nama'],
-                'divisi' => $data['divisi'],
-                'outlet' => $data['outlet'],
-                'nilai' => $data['nilai'],
-                'total_nilai' => $totalNilai,
-                'topsis_score' => $topsisScore * 100, // Skor dalam persen
-                'topsis_raw' => $topsisScore, // Nilai mentah TOPSIS (0-1)
-                'preferensi_score' => number_format($topsisScore, 4), // Format 4 desimal
-                'mendapat_bonus' => $totalNilai >= 60 // Kriteria tambahan untuk mendapatkan bonus
-            ];
-        }
-
-        // Urutkan hasil berdasarkan skor TOPSIS secara descending
-        usort($results, function($a, $b) {
-            return $b['topsis_raw'] - $a['topsis_raw'];
-        });
-
-        // Tambahkan ranking setelah diurutkan
-        foreach ($results as $index => &$result) {
-            $result['ranking'] = $index + 1;
-        }
-
-        // Kembalikan hasil ke view
+    // Jika tidak ada data penilaian karyawan, kembalikan halaman kosong
+    if ($penilaianKaryawan->isEmpty()) {
         return view('admin.admin-hasilspk', [
-            'results' => $results,
+            'results' => [],
             'departemenList' => $departemenList
         ]);
     }
+
+    // Bobot untuk kriteria
+    $weights = [
+        'c1' => 0.30,
+        'c2' => 0.13,
+        'c3' => 0.12,
+        'c4' => 0.10,
+        'c5' => 0.10,
+        'c6' => 0.10,
+        'c7' => 0.05,
+        'c8' => 0.10
+    ];
+
+    // Persiapkan matriks penilaian karyawan
+    $matrix = [];
+    foreach ($penilaianKaryawan as $nilai) {
+        if (!$nilai->karyawan) continue;
+
+        // Susun data nilai karyawan
+        $nilaiArray = [
+            'c1' => $nilai->c1,
+            'c2' => $nilai->c2,
+            'c3' => $nilai->c3,
+            'c4' => $nilai->c4,
+            'c5' => $nilai->c5,
+            'c6' => $nilai->c6,
+            'c7' => $nilai->c7,
+            'c8' => $nilai->c8,
+        ];
+
+        // Tambahkan data ke matriks utama
+        $matrix[] = [
+            'id_karyawan' => $nilai->karyawan->id,
+            'nama' => $nilai->karyawan->nama,
+            'divisi' => $nilai->karyawan->divisi->nama ?? 'N/A',
+            'outlet' => $nilai->karyawan->outlet->nama ?? 'N/A',
+            'nilai' => $nilaiArray
+        ];
+    }
+
+    // Langkah-langkah metode TOPSIS
+    $normalizedMatrix = $this->normalizeMatrix($matrix); // Normalisasi matriks
+    $weightedMatrix = $this->weightedMatrix($normalizedMatrix, $weights); // Matriks berbobot
+    $idealSolutions = $this->findIdealSolutions($weightedMatrix); // Solusi ideal positif dan negatif
+    $distances = $this->calculateDistances($weightedMatrix, $idealSolutions); // Hitung jarak ke solusi ideal
+    $preferences = $this->calculatePreferences($distances); // Hitung skor preferensi
+
+    // Susun hasil akhir untuk ditampilkan
+    $results = [];
+    foreach ($matrix as $data) {
+        $totalNilai = array_sum($data['nilai']); // Total nilai tanpa bobot
+        $topsisScore = isset($preferences[$data['id_karyawan']]) ? $preferences[$data['id_karyawan']] : 0;
+
+        $results[] = [
+            'id_karyawan' => $data['id_karyawan'],
+            'nama' => $data['nama'],
+            'divisi' => $data['divisi'],
+            'outlet' => $data['outlet'],
+            'nilai' => $data['nilai'],
+            'total_nilai' => $totalNilai,
+            'topsis_score' => $topsisScore * 100, // Skor dalam persen
+            'topsis_raw' => $topsisScore, // Nilai mentah TOPSIS (0-1)
+            'preferensi_score' => number_format($topsisScore, 4), // Format 4 desimal
+            'mendapat_bonus' => $totalNilai >= 60 // Kriteria tambahan untuk mendapatkan bonus
+        ];
+    }
+
+    // Urutkan hasil berdasarkan skor TOPSIS secara descending
+    usort($results, function($a, $b) {
+        // Pastikan comparison yang tepat untuk float
+        if ($a['topsis_raw'] == $b['topsis_raw']) {
+            return 0;
+        }
+        return ($a['topsis_raw'] < $b['topsis_raw']) ? 1 : -1;
+    });
+
+    // Tambahkan ranking setelah diurutkan
+    foreach ($results as $index => &$result) {
+        $result['ranking'] = $index + 1;
+    }
+    
+    // Debug: Log untuk melihat urutan
+    // \Log::info('Results order:', array_map(function($r) {
+    //     return ['nama' => $r['nama'], 'topsis_raw' => $r['topsis_raw'], 'ranking' => $r['ranking']];
+    // }, $results));
+
+    // Kembalikan hasil ke view
+    return view('admin.admin-hasilspk', [
+        'results' => $results,
+        'departemenList' => $departemenList
+    ]);
+}
 
     // Fungsi untuk normalisasi matriks
     private function normalizeMatrix($matrix)
@@ -215,13 +224,18 @@ class SPKController extends Controller
     }
 
 
-    public function exportToPDF()
+public function exportToPDF()
 {
-    // Ambil data penilaian karyawan dan daftar departemen
+    // Ambil data penilaian karyawan beserta relasi divisi dan outlet
     $penilaianKaryawan = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet'])->get();
     $departemenList = Departemen::all();
 
-    // Bobot untuk kriteria (jika perlu)
+    // Jika tidak ada data penilaian karyawan, kembalikan response error
+    if ($penilaianKaryawan->isEmpty()) {
+        return redirect()->back()->with('error', 'Tidak ada data penilaian karyawan untuk diekspor.');
+    }
+
+    // Bobot untuk kriteria (sama dengan halaman index)
     $weights = [
         'c1' => 0.30,
         'c2' => 0.13,
@@ -233,10 +247,12 @@ class SPKController extends Controller
         'c8' => 0.10
     ];
 
-    // Matriks penilaian karyawan dan hasil TOPSIS (menggunakan langkah-langkah yang sudah ada)
+    // Persiapkan matriks penilaian karyawan (sama dengan method index)
     $matrix = [];
     foreach ($penilaianKaryawan as $nilai) {
         if (!$nilai->karyawan) continue;
+
+        // Susun data nilai karyawan
         $nilaiArray = [
             'c1' => $nilai->c1,
             'c2' => $nilai->c2,
@@ -248,6 +264,7 @@ class SPKController extends Controller
             'c8' => $nilai->c8,
         ];
 
+        // Tambahkan data ke matriks utama
         $matrix[] = [
             'id_karyawan' => $nilai->karyawan->id,
             'nama' => $nilai->karyawan->nama,
@@ -257,40 +274,58 @@ class SPKController extends Controller
         ];
     }
 
-    // Langkah-langkah metode TOPSIS (gunakan metode seperti sebelumnya)
-    $normalizedMatrix = $this->normalizeMatrix($matrix);
-    $weightedMatrix = $this->weightedMatrix($normalizedMatrix, $weights);
-    $idealSolutions = $this->findIdealSolutions($weightedMatrix);
-    $distances = $this->calculateDistances($weightedMatrix, $idealSolutions);
-    $preferences = $this->calculatePreferences($distances);
+    // Langkah-langkah metode TOPSIS (sama dengan method index)
+    $normalizedMatrix = $this->normalizeMatrix($matrix); // Normalisasi matriks
+    $weightedMatrix = $this->weightedMatrix($normalizedMatrix, $weights); // Matriks berbobot
+    $idealSolutions = $this->findIdealSolutions($weightedMatrix); // Solusi ideal positif dan negatif
+    $distances = $this->calculateDistances($weightedMatrix, $idealSolutions); // Hitung jarak ke solusi ideal
+    $preferences = $this->calculatePreferences($distances); // Hitung skor preferensi
 
+    // Susun hasil akhir untuk ditampilkan (sama dengan method index)
     $results = [];
     foreach ($matrix as $data) {
-        $totalNilai = array_sum($data['nilai']);
+        $totalNilai = array_sum($data['nilai']); // Total nilai tanpa bobot
+        $topsisScore = isset($preferences[$data['id_karyawan']]) ? $preferences[$data['id_karyawan']] : 0;
+
         $results[] = [
+            'id_karyawan' => $data['id_karyawan'],
             'nama' => $data['nama'],
             'divisi' => $data['divisi'],
             'outlet' => $data['outlet'],
             'nilai' => $data['nilai'],
             'total_nilai' => $totalNilai,
-            'topsis_score' => isset($preferences[$data['id_karyawan']]) ? $preferences[$data['id_karyawan']] * 100 : 0,
-            'mendapat_bonus' => $totalNilai >= 60
+            'topsis_score' => $topsisScore * 100, // Skor dalam persen
+            'topsis_raw' => $topsisScore, // Nilai mentah TOPSIS (0-1)
+            'preferensi_score' => number_format($topsisScore, 4), // Format 4 desimal
+            'mendapat_bonus' => $totalNilai >= 60 // Kriteria tambahan untuk mendapatkan bonus
         ];
     }
 
-    // Urutkan hasil berdasarkan skor TOPSIS secara descending
+    // Urutkan hasil berdasarkan skor TOPSIS secara descending (sama dengan method index)
     usort($results, function($a, $b) {
-        return $b['topsis_score'] - $a['topsis_score'];
+        // Pastikan comparison yang tepat untuk float
+        if ($a['topsis_raw'] == $b['topsis_raw']) {
+            return 0;
+        }
+        return ($a['topsis_raw'] < $b['topsis_raw']) ? 1 : -1;
     });
 
-    // Persiapkan data yang akan dikirim ke view PDF
+    // Tambahkan ranking setelah diurutkan (sama dengan method index)
+    foreach ($results as $index => &$result) {
+        $result['ranking'] = $index + 1;
+    }
+
+    // Load view PDF dengan data yang sama seperti halaman web
     $pdf = Pdf::loadView('admin.admin-hasilspk-pdf', [
         'results' => $results,
         'departemenList' => $departemenList
     ]);
 
+    // Set orientasi landscape untuk tabel yang lebar
+    $pdf->setPaper('A4', 'landscape');
+
     // Return PDF untuk diunduh
-    return $pdf->download('hasil_spk_karyawan.pdf');
+    return $pdf->download('hasil_spk_bonus_karyawan_' . date('Y-m-d_H-i-s') . '.pdf');
 }
 
 }

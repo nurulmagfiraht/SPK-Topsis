@@ -3,66 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil SPK Karyawan - PDF</title>
+    <title>Hasil SPK Bonus Karyawan - PDF</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        .info-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+        
+        .info-section h3 {
+            margin: 0 0 10px 0;
+            color: #495057;
+            font-size: 14px;
+        }
+        
+        .criteria-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .criteria-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .criteria-item {
+            margin: 3px 0;
+            font-size: 11px;
+        }
+        
+        .badge {
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .badge-c1 { background-color: #dc3545; }
+        .badge-c2 { background-color: #007bff; }
+        .badge-c3 { background-color: #28a745; }
+        .badge-c4 { background-color: #ffc107; color: #000; }
+        .badge-c5 { background-color: #6f42c1; }
+        .badge-c6 { background-color: #e83e8c; }
+        .badge-c7 { background-color: #795548; }
+        .badge-c8 { background-color: #20c997; }
+        
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
+        
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #333;
         }
-        th, td {
-            padding: 8px;
+        
+        th {
+            background-color: #f8f9fa;
+            padding: 8px 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        
+        td {
+            padding: 6px;
             text-align: left;
+            font-size: 10px;
+            vertical-align: middle;
         }
-        .badge {
-            padding: 3px 6px;
-            border-radius: 5px;
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .ranking-badge {
             font-size: 12px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            min-width: 25px;
+            display: inline-block;
+        }
+        
+        .ranking-1 { background-color: #FFD700; color: #000; }
+        .ranking-2 { background-color: #C0C0C0; color: #000; }
+        .ranking-3 { background-color: #CD7F32; }
+        .ranking-other { background-color: #6c757d; }
+        
+        .detail-nilai {
+            font-size: 9px;
+            line-height: 1.3;
+        }
+        
+        .preferensi-score {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #007bff;
+            font-size: 11px;
+        }
+        
+        .status-bonus {
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .status-dapat { background-color: #28a745; color: white; }
+        .status-belum { background-color: #dc3545; color: white; }
+        
+        .progress-text {
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .footer-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .footer-info strong {
+            color: #333;
+        }
+        
+        @media print {
+            body { margin: 10px; }
+            .info-section { page-break-inside: avoid; }
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
+    <h1>Hasil SPK Bonus Karyawan</h1>
+    <p style="text-align: center; margin-bottom: 20px; color: #666;">
+        Peringkat Karyawan Berdasarkan Penilaian TOPSIS
+    </p>
 
-    <h1>Hasil SPK Karyawan</h1>
-
+    <!-- Tabel Hasil -->
     <table>
         <thead>
             <tr>
-                <th>No.</th>
-                <th>Nama Karyawan</th>
-                <th>Divisi</th>
-                <th>Outlet</th>
-                <th>Detail Nilai</th>
-                <th>Status Bonus</th>
-                <th>Progress</th>
+                <th style="width: 8%;">Ranking</th>
+                <th style="width: 15%;">Nama Karyawan</th>
+                <th style="width: 12%;">Divisi</th>
+                <th style="width: 12%;">Outlet</th>
+                <th style="width: 25%;">Detail Nilai</th>
+                <th style="width: 10%;">Skor Preferensi</th>
+                <th style="width: 13%;">Status Bonus</th>
+                <th style="width: 5%;">Progress</th>
             </tr>
         </thead>
         <tbody>
             @foreach($results as $index => $result)
             <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $result['nama'] }}</td>
+                <td class="text-center">
+                    <span class="ranking-badge 
+                        @if($result['ranking'] == 1) ranking-1
+                        @elseif($result['ranking'] == 2) ranking-2
+                        @elseif($result['ranking'] == 3) ranking-3
+                        @else ranking-other
+                        @endif">
+                        {{ $result['ranking'] }}
+                    </span>
+                </td>
+                <td><strong>{{ $result['nama'] }}</strong></td>
                 <td>{{ $result['divisi'] }}</td>
                 <td>{{ $result['outlet'] }}</td>
                 <td>
-                    @foreach($result['nilai'] as $key => $value)
-                        <span class="badge" style="background-color: {{ $key == 'c1' ? 'red' : ($key == 'c2' ? 'blue' : ($key == 'c3' ? 'green' : 'orange')) }};">
-                            {{ strtoupper($key) }}: {{ $value }}%
-                        </span>
-                    @endforeach
+                    <div class="detail-nilai">
+                        <span class="badge badge-c1">C1</span>: {{ $result['nilai']['c1'] }}%, 
+                        <span class="badge badge-c2">C2</span>: {{ $result['nilai']['c2'] }}%, 
+                        <span class="badge badge-c3">C3</span>: {{ $result['nilai']['c3'] }}%, 
+                        <span class="badge badge-c4">C4</span>: {{ $result['nilai']['c4'] }}%<br>
+                        <span class="badge badge-c5">C5</span>: {{ $result['nilai']['c5'] }}%, 
+                        <span class="badge badge-c6">C6</span>: {{ $result['nilai']['c6'] }}%, 
+                        <span class="badge badge-c7">C7</span>: {{ $result['nilai']['c7'] }}%, 
+                        <span class="badge badge-c8">C8</span>: {{ $result['nilai']['c8'] }}%
+                    </div>
                 </td>
-                <td>
-                    {{ $result['mendapat_bonus'] ? 'Mendapatkan Bonus' : 'Belum Mendapatkan Bonus' }}
+                <td class="text-center">
+                    <span class="preferensi-score">{{ $result['preferensi_score'] }}</span>
+                    <br>
+                    <small style="font-size: 8px; color: #666;">Vector Score</small>
                 </td>
-                <td>
-                    {{ $result['topsis_score'] }}%
+                <td class="text-center">
+                    <span class="status-bonus {{ $result['mendapat_bonus'] ? 'status-dapat' : 'status-belum' }}">
+                        {{ $result['total_nilai'] }}% - 
+                        {{ $result['mendapat_bonus'] ? 'Mendapat Bonus' : 'Belum Mendapat Bonus' }}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <div class="progress-text">{{ $result['total_nilai'] }}%</div>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-
+    <div style="margin-top: 20px; text-align: center; font-size: 10px; color: #666;">
+        <p>Dicetak pada: {{ date('d/m/Y H:i:s') }}</p>
+    </div>
 </body>
 </html>

@@ -113,7 +113,6 @@
                                                 <th>Outlet</th>
                                                 <th>Detail Nilai</th>
                                                 <th>Skor Preferensi</th>
-                                                <th>Skor TOPSIS (%)</th>
                                                 <th>Status Bonus</th>
                                                 <th>Progress</th>
                                             </tr>
@@ -150,11 +149,6 @@
                                                     <span class="preferensi-score">{{ $result['preferensi_score'] }}</span>
                                                     <br>
                                                     <small class="text-muted">Vector Score</small>
-                                                </td>
-                                                <td class="text-center">
-                                                    <span class="badge bg-info" style="font-size: 12px; padding: 5px 10px;">
-                                                        {{ number_format($result['topsis_score'], 2) }}%
-                                                    </span>
                                                 </td>
                                                 <td class="text-center">
                                                     <span class="badge {{ $result['mendapat_bonus'] ? 'bg-success' : 'bg-danger' }}">
@@ -248,6 +242,16 @@ $(document).ready(function() {
         "pageLength": 25,
         "order": [[ 0, "asc" ]], // Urutkan berdasarkan ranking
         "columnDefs": [
+            { 
+                "targets": [0], // Kolom ranking
+                "type": "num",
+                "orderable": true
+            },
+            { 
+                "targets": [5], // Kolom skor preferensi
+                "type": "num",
+                "orderable": true
+            },
             { "orderable": false, "targets": [4, 8] } // Nonaktifkan sorting untuk kolom detail nilai dan progress
         ]
     });
