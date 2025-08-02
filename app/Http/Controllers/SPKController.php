@@ -7,8 +7,7 @@ use App\Models\Karyawan;
 use App\Models\KPI;
 use Illuminate\Http\Request;
 use App\Models\Departemen;
-use Barryvdh\DomPDF\Facade as PDF;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SPKController extends Controller
 {
@@ -78,22 +77,31 @@ class SPKController extends Controller
         $results = [];
         foreach ($matrix as $data) {
             $totalNilai = array_sum($data['nilai']); // Total nilai tanpa bobot
+            $topsisScore = isset($preferences[$data['id_karyawan']]) ? $preferences[$data['id_karyawan']] : 0;
 
             $results[] = [
+                'id_karyawan' => $data['id_karyawan'],
                 'nama' => $data['nama'],
                 'divisi' => $data['divisi'],
                 'outlet' => $data['outlet'],
                 'nilai' => $data['nilai'],
                 'total_nilai' => $totalNilai,
-                'topsis_score' => isset($preferences[$data['id_karyawan']]) ? $preferences[$data['id_karyawan']] * 100 : 0,
+                'topsis_score' => $topsisScore * 100, // Skor dalam persen
+                'topsis_raw' => $topsisScore, // Nilai mentah TOPSIS (0-1)
+                'preferensi_score' => number_format($topsisScore, 4), // Format 4 desimal
                 'mendapat_bonus' => $totalNilai >= 60 // Kriteria tambahan untuk mendapatkan bonus
             ];
         }
 
         // Urutkan hasil berdasarkan skor TOPSIS secara descending
         usort($results, function($a, $b) {
-            return $b['topsis_score'] - $a['topsis_score'];
+            return $b['topsis_raw'] - $a['topsis_raw'];
         });
+
+        // Tambahkan ranking setelah diurutkan
+        foreach ($results as $index => &$result) {
+            $result['ranking'] = $index + 1;
+        }
 
         // Kembalikan hasil ke view
         return view('admin.admin-hasilspk', [
@@ -276,7 +284,7 @@ class SPKController extends Controller
     });
 
     // Persiapkan data yang akan dikirim ke view PDF
-    $pdf = PDF::loadView('admin.admin-hasilspk-pdf', [
+    $pdf = Pdf::loadView('admin.admin-hasilspk-pdf', [
         'results' => $results,
         'departemenList' => $departemenList
     ]);
