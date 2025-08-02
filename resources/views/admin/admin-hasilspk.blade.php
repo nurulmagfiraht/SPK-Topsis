@@ -75,6 +75,10 @@
                                 <h3 class="card-title">Peringkat Karyawan Berdasarkan Penilaian</h3>
                             </div>
                             <div class="card-body">
+
+                                <a href="{{ route('admin.hasilspk.pdf') }}" class="btn btn-primary" target="_blank">
+    <i class="fas fa-file-pdf"></i> Print PDF
+</a>
                             <table id="results-table" class="table table-bordered table-striped">
     <thead>
         <tr>

@@ -57,6 +57,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin-departemen/{departemen}/{divisi}', [DepartemenController::class, 'show'])->name('admin-showdivisi.show');
 
+
+    Route::get('/admin/hasil-spk/pdf', [SPKController::class, 'exportToPDF'])->name('admin.hasilspk.pdf');
+
+
     // Rute untuk KPI
     Route::resource('kpi', KPIController::class);
 
@@ -77,3 +81,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+

@@ -7,6 +7,8 @@ use App\Models\Karyawan;
 use App\Models\KPI;
 use Illuminate\Http\Request;
 use App\Models\Departemen;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class SPKController extends Controller
 {
@@ -26,16 +28,22 @@ class SPKController extends Controller
             ]);
         }
 
+        // Bobot untuk kriteria
+        $weights = [
+            'c1' => 0.30,
+            'c2' => 0.13,
+            'c3' => 0.12,
+            'c4' => 0.10,
+            'c5' => 0.10,
+            'c6' => 0.10,
+            'c7' => 0.05,
+            'c8' => 0.10
+        ];
+
         // Persiapkan matriks penilaian karyawan
         $matrix = [];
         foreach ($penilaianKaryawan as $nilai) {
             if (!$nilai->karyawan) continue;
-
-            // Ambil bobot KPI berdasarkan divisi karyawan
-            $kpiBobot = KPI::where('divisi_id', $nilai->karyawan->divisi_id)
-                ->get()
-                ->pluck('bobot', 'simbol')
-                ->toArray();
 
             // Susun data nilai karyawan
             $nilaiArray = [
@@ -47,8 +55,6 @@ class SPKController extends Controller
                 'c6' => $nilai->c6,
                 'c7' => $nilai->c7,
                 'c8' => $nilai->c8,
-                // 'c9' => $nilai->c9,
-                // 'c10' => $nilai->c10,
             ];
 
             // Tambahkan data ke matriks utama
@@ -57,14 +63,13 @@ class SPKController extends Controller
                 'nama' => $nilai->karyawan->nama,
                 'divisi' => $nilai->karyawan->divisi->nama ?? 'N/A',
                 'outlet' => $nilai->karyawan->outlet->nama ?? 'N/A',
-                'nilai' => $nilaiArray,
-                'bobot' => $kpiBobot
+                'nilai' => $nilaiArray
             ];
         }
 
         // Langkah-langkah metode TOPSIS
         $normalizedMatrix = $this->normalizeMatrix($matrix); // Normalisasi matriks
-        $weightedMatrix = $this->weightedMatrix($normalizedMatrix); // Matriks berbobot
+        $weightedMatrix = $this->weightedMatrix($normalizedMatrix, $weights); // Matriks berbobot
         $idealSolutions = $this->findIdealSolutions($weightedMatrix); // Solusi ideal positif dan negatif
         $distances = $this->calculateDistances($weightedMatrix, $idealSolutions); // Hitung jarak ke solusi ideal
         $preferences = $this->calculatePreferences($distances); // Hitung skor preferensi
@@ -113,8 +118,7 @@ class SPKController extends Controller
         $normalized = [];
         foreach ($matrix as $row) {
             $normalizedRow = [
-                'id_karyawan' => $row['id_karyawan'],
-                'bobot' => $row['bobot']
+                'id_karyawan' => $row['id_karyawan']
             ];
 
             foreach ($row['nilai'] as $criteria => $value) {
@@ -127,16 +131,15 @@ class SPKController extends Controller
     }
 
     // Fungsi untuk menghitung matriks berbobot
-    private function weightedMatrix($normalizedMatrix)
+    private function weightedMatrix($normalizedMatrix, $weights)
     {
         $weighted = [];
         foreach ($normalizedMatrix as $row) {
             $weightedRow = ['id_karyawan' => $row['id_karyawan']];
-            $bobot = $row['bobot'];
-
+            
             foreach ($row as $criteria => $value) {
-                if ($criteria !== 'id_karyawan' && $criteria !== 'bobot') {
-                    $weight = isset($bobot[strtoupper($criteria)]) ? $bobot[strtoupper($criteria)] / 100 : 0;
+                if ($criteria !== 'id_karyawan') {
+                    $weight = isset($weights[$criteria]) ? $weights[$criteria] : 0;
                     $weightedRow[$criteria] = $value * $weight;
                 }
             }
@@ -202,4 +205,84 @@ class SPKController extends Controller
         }
         return $preferences;
     }
+
+
+    public function exportToPDF()
+{
+    // Ambil data penilaian karyawan dan daftar departemen
+    $penilaianKaryawan = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet'])->get();
+    $departemenList = Departemen::all();
+
+    // Bobot untuk kriteria (jika perlu)
+    $weights = [
+        'c1' => 0.30,
+        'c2' => 0.13,
+        'c3' => 0.12,
+        'c4' => 0.10,
+        'c5' => 0.10,
+        'c6' => 0.10,
+        'c7' => 0.05,
+        'c8' => 0.10
+    ];
+
+    // Matriks penilaian karyawan dan hasil TOPSIS (menggunakan langkah-langkah yang sudah ada)
+    $matrix = [];
+    foreach ($penilaianKaryawan as $nilai) {
+        if (!$nilai->karyawan) continue;
+        $nilaiArray = [
+            'c1' => $nilai->c1,
+            'c2' => $nilai->c2,
+            'c3' => $nilai->c3,
+            'c4' => $nilai->c4,
+            'c5' => $nilai->c5,
+            'c6' => $nilai->c6,
+            'c7' => $nilai->c7,
+            'c8' => $nilai->c8,
+        ];
+
+        $matrix[] = [
+            'id_karyawan' => $nilai->karyawan->id,
+            'nama' => $nilai->karyawan->nama,
+            'divisi' => $nilai->karyawan->divisi->nama ?? 'N/A',
+            'outlet' => $nilai->karyawan->outlet->nama ?? 'N/A',
+            'nilai' => $nilaiArray
+        ];
+    }
+
+    // Langkah-langkah metode TOPSIS (gunakan metode seperti sebelumnya)
+    $normalizedMatrix = $this->normalizeMatrix($matrix);
+    $weightedMatrix = $this->weightedMatrix($normalizedMatrix, $weights);
+    $idealSolutions = $this->findIdealSolutions($weightedMatrix);
+    $distances = $this->calculateDistances($weightedMatrix, $idealSolutions);
+    $preferences = $this->calculatePreferences($distances);
+
+    $results = [];
+    foreach ($matrix as $data) {
+        $totalNilai = array_sum($data['nilai']);
+        $results[] = [
+            'nama' => $data['nama'],
+            'divisi' => $data['divisi'],
+            'outlet' => $data['outlet'],
+            'nilai' => $data['nilai'],
+            'total_nilai' => $totalNilai,
+            'topsis_score' => isset($preferences[$data['id_karyawan']]) ? $preferences[$data['id_karyawan']] * 100 : 0,
+            'mendapat_bonus' => $totalNilai >= 60
+        ];
+    }
+
+    // Urutkan hasil berdasarkan skor TOPSIS secara descending
+    usort($results, function($a, $b) {
+        return $b['topsis_score'] - $a['topsis_score'];
+    });
+
+    // Persiapkan data yang akan dikirim ke view PDF
+    $pdf = PDF::loadView('admin.admin-hasilspk-pdf', [
+        'results' => $results,
+        'departemenList' => $departemenList
+    ]);
+
+    // Return PDF untuk diunduh
+    return $pdf->download('hasil_spk_karyawan.pdf');
+}
+
 }
