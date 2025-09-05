@@ -51,6 +51,20 @@
         color: #007bff;
     }
 
+    .filter-section {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-group-custom {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
     @media (max-width: 768px) {
         .detail-nilai {
             display: block;
@@ -62,6 +76,14 @@
         
         .table-responsive {
             font-size: 12px;
+        }
+
+        .btn-group-custom {
+            flex-direction: column;
+        }
+
+        .btn-group-custom .btn {
+            margin-bottom: 10px;
         }
     }
 </style>
@@ -94,15 +116,93 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
+                        <!-- Filter Section -->
+                        <div class="filter-section">
+                            <h5><i class="fas fa-filter"></i> Filter Data</h5>
+                            <form method="GET" action="{{ route('admin-hasilspk.index') }}" id="filterForm">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="bulan">Bulan:</label>
+                                        <select name="bulan" id="bulan" class="form-control">
+                                            <option value="">-- Semua Bulan --</option>
+                                            <option value="1" {{ $selectedBulan == '1' ? 'selected' : '' }}>Januari</option>
+                                            <option value="2" {{ $selectedBulan == '2' ? 'selected' : '' }}>Februari</option>
+                                            <option value="3" {{ $selectedBulan == '3' ? 'selected' : '' }}>Maret</option>
+                                            <option value="4" {{ $selectedBulan == '4' ? 'selected' : '' }}>April</option>
+                                            <option value="5" {{ $selectedBulan == '5' ? 'selected' : '' }}>Mei</option>
+                                            <option value="6" {{ $selectedBulan == '6' ? 'selected' : '' }}>Juni</option>
+                                            <option value="7" {{ $selectedBulan == '7' ? 'selected' : '' }}>Juli</option>
+                                            <option value="8" {{ $selectedBulan == '8' ? 'selected' : '' }}>Agustus</option>
+                                            <option value="9" {{ $selectedBulan == '9' ? 'selected' : '' }}>September</option>
+                                            <option value="10" {{ $selectedBulan == '10' ? 'selected' : '' }}>Oktober</option>
+                                            <option value="11" {{ $selectedBulan == '11' ? 'selected' : '' }}>November</option>
+                                            <option value="12" {{ $selectedBulan == '12' ? 'selected' : '' }}>Desember</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="tahun">Tahun:</label>
+                                        <select name="tahun" id="tahun" class="form-control">
+                                            <option value="">-- Semua Tahun --</option>
+                                            @for($year = date('Y'); $year >= 2020; $year--)
+                                                <option value="{{ $year }}" {{ $selectedTahun == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>&nbsp;</label><br>
+                                        <div class="btn-group-custom">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-search"></i> Filter Data
+                                            </button>
+                                            <a href="{{ route('admin-hasilspk.index') }}" class="btn btn-secondary">
+                                                <i class="fas fa-refresh"></i> Reset Filter
+                                            </a>
+                                                                                    <!-- Print Data Terfilter -->
+                                            <a href="{{ route('admin.hasilspk.pdf', ['bulan' => $selectedBulan, 'tahun' => $selectedTahun]) }}" 
+                                            class="btn btn-danger" target="_blank">
+                                                <i class="fas fa-file-pdf"></i> 
+                                                Print PDF
+                                                @if($selectedBulan || $selectedTahun)
+                                                    (Terfilter)
+                                                @endif
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Peringkat Karyawan Berdasarkan Penilaian TOPSIS</h3>
+                                <h3 class="card-title">
+                                    Peringkat Karyawan Berdasarkan Penilaian TOPSIS
+                                    @if($selectedBulan || $selectedTahun)
+                                        <small class="text-muted">
+                                            (
+                                            @if($selectedBulan && $selectedTahun)
+                                                {{ date('F Y', mktime(0, 0, 0, $selectedBulan, 1, $selectedTahun)) }}
+                                            @elseif($selectedTahun)
+                                                Tahun {{ $selectedTahun }}
+                                            @endif
+                                            )
+                                        </small>
+                                    @endif
+                                </h3>
                             </div>
                             <div class="card-body">
-                                <a href="{{ route('admin.hasilspk.pdf') }}" class="btn btn-primary mb-3" target="_blank">
-                                    <i class="fas fa-file-pdf"></i> Print PDF
-                                </a>
+                                <!-- Tombol Print/Export -->
+                                <div class="mb-3">
+                                    <div class="btn-group-custom">
+                                        
+                                        <!-- Print Semua Data -->
+                                        <a href="{{ route('admin.hasilspk.pdf', ['print_all' => 1]) }}" 
+                                           class="btn btn-success" target="_blank">
+                                            <i class="fas fa-file-pdf"></i> Print Semua Data
+                                        </a>
+                                    </div>
+                                </div>
                                 
+                                @if(count($results) > 0)
                                 <div class="table-responsive">
                                     <table id="results-table" class="table table-bordered table-striped">
                                         <thead>
@@ -115,6 +215,7 @@
                                                 <th>Skor Preferensi</th>
                                                 <th>Status Bonus</th>
                                                 <th>Progress</th>
+                                                <th>Tgl Penilaian</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -173,11 +274,20 @@
                                                     </div>
                                                     <small class="text-muted">{{ $result['total_nilai'] }}%</small>
                                                 </td>
+                                                <td class="text-center">
+                                                    <small>{{ $result['tanggal_penilaian'] ? $result['tanggal_penilaian']->format('d/m/Y') : 'N/A' }}</small>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+                                @else
+                                <div class="alert alert-info text-center">
+                                    <h4><i class="icon fa fa-info"></i> Tidak Ada Data</h4>
+                                    Tidak ada data penilaian karyawan yang sesuai dengan filter yang dipilih.
+                                </div>
+                                @endif
                             </div>
                         </div>
                         
@@ -252,9 +362,42 @@ $(document).ready(function() {
                 "type": "num",
                 "orderable": true
             },
-            { "orderable": false, "targets": [4, 8] } // Nonaktifkan sorting untuk kolom detail nilai dan progress
+            { "orderable": false, "targets": [4, 7] } // Nonaktifkan sorting untuk kolom detail nilai dan progress
         ]
     });
+
+    // Validasi form filter
+    $('#filterForm').on('submit', function(e) {
+        var bulan = $('#bulan').val();
+        var tahun = $('#tahun').val();
+        
+        if ((!bulan && tahun) || (bulan && !tahun)) {
+            e.preventDefault();
+            alert('Harap pilih bulan dan tahun untuk melakukan filter data.');
+            return false;
+        }
+    });
+
+    // Validasi tombol print terfilter
+    $('#printFilteredBtn').on('click', function(e) {
+        e.preventDefault();
+        var bulan = $('#bulan').val();
+        var tahun = $('#tahun').val();
+        
+        if (!bulan || !tahun) {
+            alert('Harap pilih bulan dan tahun terlebih dahulu untuk mencetak data terfilter.');
+            return false;
+        }
+        
+        // Jika validasi berhasil, buat URL dan buka di tab baru
+        var printUrl = "{{ route('admin.hasilspk.pdf') }}?bulan=" + bulan + "&tahun=" + tahun;
+        window.open(printUrl, '_blank');
+    });
+
+    // Auto-hide alerts after 5 seconds
+    setTimeout(function() {
+        $('.alert').fadeOut('slow');
+    }, 5000);
 });
 </script>
 

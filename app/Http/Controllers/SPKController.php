@@ -12,10 +12,26 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class SPKController extends Controller
 {
     // Fungsi utama untuk menampilkan hasil perhitungan TOPSIS
-public function index()
-{
-    // Ambil data penilaian karyawan beserta relasi divisi dan outlet
-    $penilaianKaryawan = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet'])->get();
+public function index(Request $request)
+ {
+    // Ambil parameter filter dari request
+    $bulan = $request->get('bulan');
+    $tahun = $request->get('tahun');
+    
+    // Query dasar untuk penilaian karyawan
+    $query = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet']);
+    
+    // Terapkan filter jika ada
+    if ($bulan && $tahun) {
+        $query->whereMonth('created_at', $bulan)
+              ->whereYear('created_at', $tahun);
+    } elseif ($tahun) {
+        $query->whereYear('created_at', $tahun);
+    }
+    
+    // Ambil data penilaian karyawan
+    $penilaianKaryawan = $query->get();
+    
     // Ambil daftar departemen untuk ditampilkan di halaman
     $departemenList = Departemen::all();
 
@@ -23,7 +39,9 @@ public function index()
     if ($penilaianKaryawan->isEmpty()) {
         return view('admin.admin-hasilspk', [
             'results' => [],
-            'departemenList' => $departemenList
+            'departemenList' => $departemenList,
+            'selectedBulan' => $bulan,
+            'selectedTahun' => $tahun
         ]);
     }
 
@@ -62,7 +80,8 @@ public function index()
             'nama' => $nilai->karyawan->nama,
             'divisi' => $nilai->karyawan->divisi->nama ?? 'N/A',
             'outlet' => $nilai->karyawan->outlet->nama ?? 'N/A',
-            'nilai' => $nilaiArray
+            'nilai' => $nilaiArray,
+            'tanggal_penilaian' => $nilai->created_at
         ];
     }
 
@@ -89,7 +108,8 @@ public function index()
             'topsis_score' => $topsisScore * 100, // Skor dalam persen
             'topsis_raw' => $topsisScore, // Nilai mentah TOPSIS (0-1)
             'preferensi_score' => number_format($topsisScore, 4), // Format 4 desimal
-            'mendapat_bonus' => $totalNilai >= 60 // Kriteria tambahan untuk mendapatkan bonus
+            'mendapat_bonus' => $totalNilai >= 60, // Kriteria tambahan untuk mendapatkan bonus
+            'tanggal_penilaian' => $data['tanggal_penilaian']
         ];
     }
 
@@ -106,18 +126,15 @@ public function index()
     foreach ($results as $index => &$result) {
         $result['ranking'] = $index + 1;
     }
-    
-    // Debug: Log untuk melihat urutan
-    // \Log::info('Results order:', array_map(function($r) {
-    //     return ['nama' => $r['nama'], 'topsis_raw' => $r['topsis_raw'], 'ranking' => $r['ranking']];
-    // }, $results));
 
     // Kembalikan hasil ke view
     return view('admin.admin-hasilspk', [
         'results' => $results,
-        'departemenList' => $departemenList
+        'departemenList' => $departemenList,
+        'selectedBulan' => $bulan,
+        'selectedTahun' => $tahun
     ]);
-}
+ }
 
     // Fungsi untuk normalisasi matriks
     private function normalizeMatrix($matrix)
@@ -224,10 +241,28 @@ public function index()
     }
 
 
-public function exportToPDF()
-{
-    // Ambil data penilaian karyawan beserta relasi divisi dan outlet
-    $penilaianKaryawan = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet'])->get();
+public function exportToPDF(Request $request)
+ {
+    // Ambil parameter filter dari request
+    $bulan = $request->get('bulan');
+    $tahun = $request->get('tahun');
+    $printAll = $request->get('print_all', false); // Parameter untuk print semua data
+    
+    // Query dasar untuk penilaian karyawan
+    $query = PenilaianKaryawanModel::with(['karyawan.divisi', 'karyawan.outlet']);
+    
+    // Terapkan filter jika bukan print all
+    if (!$printAll) {
+        if ($bulan && $tahun) {
+            $query->whereMonth('created_at', $bulan)
+                  ->whereYear('created_at', $tahun);
+        } elseif ($tahun) {
+            $query->whereYear('created_at', $tahun);
+        }
+    }
+    
+    // Ambil data penilaian karyawan
+    $penilaianKaryawan = $query->get();
     $departemenList = Departemen::all();
 
     // Jika tidak ada data penilaian karyawan, kembalikan response error
@@ -270,7 +305,8 @@ public function exportToPDF()
             'nama' => $nilai->karyawan->nama,
             'divisi' => $nilai->karyawan->divisi->nama ?? 'N/A',
             'outlet' => $nilai->karyawan->outlet->nama ?? 'N/A',
-            'nilai' => $nilaiArray
+            'nilai' => $nilaiArray,
+            'tanggal_penilaian' => $nilai->created_at
         ];
     }
 
@@ -297,7 +333,8 @@ public function exportToPDF()
             'topsis_score' => $topsisScore * 100, // Skor dalam persen
             'topsis_raw' => $topsisScore, // Nilai mentah TOPSIS (0-1)
             'preferensi_score' => number_format($topsisScore, 4), // Format 4 desimal
-            'mendapat_bonus' => $totalNilai >= 60 // Kriteria tambahan untuk mendapatkan bonus
+            'mendapat_bonus' => $totalNilai >= 60, // Kriteria tambahan untuk mendapatkan bonus
+            'tanggal_penilaian' => $data['tanggal_penilaian']
         ];
     }
 
@@ -315,17 +352,38 @@ public function exportToPDF()
         $result['ranking'] = $index + 1;
     }
 
+    // Tentukan nama file berdasarkan filter
+    $fileName = 'hasil_spk_bonus_karyawan_';
+    if ($printAll) {
+        $fileName .= 'semua_data_';
+    } elseif ($bulan && $tahun) {
+        $namaBulan = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+        $fileName .= strtolower($namaBulan[$bulan]) . '_' . $tahun . '_';
+    } elseif ($tahun) {
+        $fileName .= 'tahun_' . $tahun . '_';
+    }
+    $fileName .= date('Y-m-d_H-i-s') . '.pdf';
+
     // Load view PDF dengan data yang sama seperti halaman web
     $pdf = Pdf::loadView('admin.admin-hasilspk-pdf', [
         'results' => $results,
-        'departemenList' => $departemenList
+        'departemenList' => $departemenList,
+        'filterInfo' => [
+            'bulan' => $bulan,
+            'tahun' => $tahun,
+            'printAll' => $printAll
+        ]
     ]);
 
     // Set orientasi landscape untuk tabel yang lebar
     $pdf->setPaper('A4', 'landscape');
 
     // Return PDF untuk diunduh
-    return $pdf->download('hasil_spk_bonus_karyawan_' . date('Y-m-d_H-i-s') . '.pdf');
-}
+    return $pdf->download($fileName);
+ }
 
 }
