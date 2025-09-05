@@ -8,7 +8,7 @@ use App\Models\Divisi;
 use App\Models\Departemen;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-
+ use Illuminate\Support\Facades\DB;
 class AbsensiController extends Controller
 {
     /**
@@ -41,13 +41,20 @@ class AbsensiController extends Controller
         $request->validate([
             'absensi_file' => 'required|file|mimes:csv,xls,xlsx|max:2048',
         ]);
-        // dd($request->all());
 
         try {
+            DB::beginTransaction();
+            
+            // Hapus semua data absensi lama
+            Absensi::query()->delete();
+            
+            // Import data baru
             Excel::import(new KaryawanImport, $request->file('absensi_file'));
-            return redirect()->back()->with('success', 'Data absensi berhasil diimpor.');
+            
+            DB::commit();
+            return redirect()->back()->with('success', 'Data absensi berhasil diimpor dan data lama telah dihapus.');
         } catch (\Exception $e) {
-            dd($e);
+            DB::rollBack();
             return redirect()->back()->with('error', 'Terjadi kesalahan saat impor: ' . $e->getMessage());
         }
     }

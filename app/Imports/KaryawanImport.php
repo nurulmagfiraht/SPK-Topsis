@@ -28,21 +28,20 @@ class KaryawanImport implements ToModel, WithHeadingRow
 
         // Simpan atau update data karyawan
       $karyawan = Karyawan::updateOrCreate(
-    ['id' => $row['nip']],
-    [
-        'nama'       => $row['nama'],
-        'divisi_id'  => $divisi->id,
-        'jabatan_id' => $jabatan->id,
-        'outlet_id'  => $row['outlet_id'], // tambahkan ini
-    ]
-);
-
-        // Simpan data absensi
-        return new Absensi([
-            'data_karyawan_id' => $karyawan->id,
-            'nama'             => $karyawan->nama,
-            'divisi_id'        => $divisi->id,
-            'jumlah_hadir'     => $row['jumlah_hadir'],
+        ['id' => $row['nip']],
+        [
+            'nama'       => $row['nama'],
+            'divisi_id'  => $divisi->id,
+            'jabatan_id' => $jabatan->id,
+            'outlet_id'  => $row['outlet_id'], // tambahkan ini
         ]);
+
+            // Simpan data absensi
+            return new Absensi([
+                'data_karyawan_id' => $karyawan->id,
+                'nama'             => $karyawan->nama,
+                'divisi_id'        => $divisi->id,
+                'jumlah_hadir'     => $row['jumlah_hadir'],
+            ]);
     }
 }

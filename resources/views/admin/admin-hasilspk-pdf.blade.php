@@ -14,8 +14,18 @@
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-size: 18px;
+        }
+        
+        .filter-info {
+            text-align: center;
+            background-color: #e9ecef;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #495057;
         }
         
         .info-section {
@@ -160,9 +170,26 @@
 </head>
 <body>
     <h1>Hasil SPK Bonus Karyawan</h1>
-    <p style="text-align: center; margin-bottom: 20px; color: #666;">
-        Peringkat Karyawan Berdasarkan Penilaian TOPSIS
-    </p>
+    
+    <!-- Informasi Filter -->
+    <div class="filter-info">
+        @if(isset($filterInfo) && ($filterInfo['bulan'] || $filterInfo['tahun'] || $filterInfo['printAll']))
+            @if($filterInfo['printAll'])
+                <strong>SEMUA DATA PENILAIAN KARYAWAN</strong>
+            @else
+                <strong>DATA TERFILTER:</strong>
+                @if($filterInfo['bulan'] && $filterInfo['tahun'])
+                    {{ date('F Y', mktime(0, 0, 0, $filterInfo['bulan'], 1, $filterInfo['tahun'])) }}
+                @elseif($filterInfo['tahun'])
+                    Tahun {{ $filterInfo['tahun'] }}
+                @endif
+            @endif
+        @else
+            Peringkat Karyawan Berdasarkan Penilaian TOPSIS
+        @endif
+        <br>
+        <small>Total Data: {{ count($results) }} Karyawan</small>
+    </div>
 
     <!-- Tabel Hasil -->
     <table>
@@ -224,8 +251,28 @@
             @endforeach
         </tbody>
     </table>
-    <div style="margin-top: 20px; text-align: center; font-size: 10px; color: #666;">
-        <p>Dicetak pada: {{ date('d/m/Y H:i:s') }}</p>
+
+    <!-- Informasi Metode TOPSIS -->
+    <div class="info-section">
+        <h3>Informasi Metode TOPSIS</h3>
+        <div class="criteria-info">
+            <div class="criteria-group">
+                <strong>Bobot Kriteria:</strong>
+                <div class="criteria-item"><span class="badge badge-c1">C1</span> Kualitas Kerja: 30%</div>
+                <div class="criteria-item"><span class="badge badge-c2">C2</span> Kuantitas Kerja: 13%</div>
+                <div class="criteria-item"><span class="badge badge-c3">C3</span> Pengetahuan Kerja: 12%</div>
+                <div class="criteria-item"><span class="badge badge-c4">C4</span> Kerjasama: 10%</div>
+            </div>
+            <div class="criteria-group">
+                <strong>Kriteria Lanjutan:</strong>
+                <div class="criteria-item"><span class="badge badge-c5">C5</span> Inisiatif: 10%</div>
+                <div class="criteria-item"><span class="badge badge-c6">C6</span> Komunikasi: 10%</div>
+                <div class="criteria-item"><span class="badge badge-c7">C7</span> Kehadiran: 5%</div>
+                <div class="criteria-item"><span class="badge badge-c8">C8</span> Integritas: 10%</div>
+            </div>
+        </div>
     </div>
+
+
 </body>
 </html>
